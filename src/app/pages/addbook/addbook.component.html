@@ -1,0 +1,254 @@
+<p>addbook works!</p>
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="flex flex-col md:flex-row">
+      <!-- Left Side - Image Preview & Upload -->
+      <div class="w-full md:w-1/3 bg-gradient-to-br from-orange-400 to-orange-600 p-6 flex flex-col items-center justify-center">
+        <div class="text-center mb-6">
+          <h2 class="text-2xl font-bold text-white mb-2">Book Cover</h2>
+          <p class="text-white text-opacity-80 text-sm">Upload a high-quality cover image</p>
+        </div>
+        
+        <div class="relative w-48 h-64 mb-6 border-2 border-dashed border-white rounded-lg overflow-hidden flex items-center justify-center bg-white bg-opacity-10">
+          <img *ngIf="imagePreview" [src]="imagePreview" alt="Book cover preview" class="w-full h-full object-cover">
+          <div *ngIf="!imagePreview" class="text-center text-white p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p>No image selected</p>
+          </div>
+          
+          <input 
+            type="file" 
+            #fileInput
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+          >
+        </div>
+        
+        <button 
+          type="button" 
+          (click)="fileInput.click()"
+          class="w-full bg-white text-orange-500 py-2 px-4 rounded-lg font-medium hover:bg-orange-50 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+        >
+          Select Image
+        </button>
+      </div>
+      
+      <!-- Right Side - Form Fields -->
+      <div class="w-full md:w-2/3 p-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-6">Add New Book</h1>
+        
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Title -->
+            <div class="col-span-2">
+              <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+              <input 
+                type="text" 
+                id="title" 
+                formControlName="title"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Enter book title"
+              >
+              <div *ngIf="f['title'].touched && f['title'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+              </div>
+            </div>
+            
+            <!-- Author -->
+            <div class="col-span-2 md:col-span-1">
+              <label for="author" class="block text-sm font-medium text-gray-700 mb-1">Author *</label>
+              <input 
+                type="text" 
+                id="author" 
+                formControlName="author"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Author name"
+              >
+              <div *ngIf="f['author'].touched && f['author'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['author'].errors?.['required']">Author is required</div>
+              </div>
+            </div>
+            
+            <!-- ISBN -->
+            <div class="col-span-2 md:col-span-1">
+              <label for="isbn" class="block text-sm font-medium text-gray-700 mb-1">ISBN *</label>
+              <input 
+                type="text" 
+                id="isbn" 
+                formControlName="isbn"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="ISBN number"
+              >
+              <div *ngIf="f['isbn'].touched && f['isbn'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['isbn'].errors?.['required']">ISBN is required</div>
+                <div *ngIf="f['isbn'].errors?.['pattern']">Enter a valid ISBN</div>
+              </div>
+            </div>
+            
+            <!-- Price -->
+            <div>
+              <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price *</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="text-gray-500">$</span>
+                </div>
+                <input 
+                  type="number" 
+                  id="price" 
+                  formControlName="price"
+                  min="0.01" 
+                  step="0.01"
+                  class="w-full border border-gray-300 rounded-lg pl-7 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                  placeholder="0.00"
+                >
+              </div>
+              <div *ngIf="f['price'].touched && f['price'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['price'].errors?.['required']">Price is required</div>
+                <div *ngIf="f['price'].errors?.['min']">Price must be greater than 0</div>
+              </div>
+            </div>
+            
+            <!-- Category -->
+            <div>
+              <label for="categoryId" class="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+              <select 
+                id="categoryId" 
+                formControlName="categoryId"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+              >
+                <option [ngValue]="null" disabled>Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              </select>
+              <div *ngIf="f['categoryId'].touched && f['categoryId'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['categoryId'].errors?.['required']">Category is required</div>
+              </div>
+            </div>
+            
+            <!-- Publisher -->
+            <div>
+              <label for="publisher" class="block text-sm font-medium text-gray-700 mb-1">Publisher</label>
+              <input 
+                type="text" 
+                id="publisher" 
+                formControlName="publisher"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Publisher name"
+              >
+            </div>
+            
+            <!-- Published Date -->
+            <div>
+              <label for="publishedDate" class="block text-sm font-medium text-gray-700 mb-1">Published Date</label>
+              <input 
+                type="date" 
+                id="publishedDate" 
+                formControlName="publishedDate"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+              >
+            </div>
+            
+            <!-- Pages -->
+            <div>
+              <label for="pages" class="block text-sm font-medium text-gray-700 mb-1">Pages</label>
+              <input 
+                type="number" 
+                id="pages" 
+                formControlName="pages"
+                min="1"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Number of pages"
+              >
+              <div *ngIf="f['pages'].touched && f['pages'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['pages'].errors?.['min']">Pages must be greater than 0</div>
+              </div>
+            </div>
+            
+            <!-- Rating -->
+            <div>
+              <label for="rating" class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+              <div class="flex items-center">
+                <input 
+                  type="number" 
+                  id="rating" 
+                  formControlName="rating"
+                  min="0" 
+                  max="5" 
+                  step="0.1"
+                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                  placeholder="0.0 - 5.0"
+                >
+                <div class="ml-2 text-yellow-400">
+                  <span *ngFor="let star of [1,2,3,4,5]" class="text-lg">
+                    <span *ngIf="bookForm.get('rating')?.value >= star">★</span>
+                    <span *ngIf="bookForm.get('rating')?.value < star">☆</span>
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="f['rating'].touched && f['rating'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['rating'].errors?.['min'] || f['rating'].errors?.['max']">Rating must be between 0 and 5</div>
+              </div>
+            </div>
+            
+            <!-- Reviews -->
+            <div>
+              <label for="reviews" class="block text-sm font-medium text-gray-700 mb-1">Reviews</label>
+              <input 
+                type="number" 
+                id="reviews" 
+                formControlName="reviews"
+                min="0"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Number of reviews"
+              >
+              <div *ngIf="f['reviews'].touched && f['reviews'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['reviews'].errors?.['min']">Reviews cannot be negative</div>
+              </div>
+            </div>
+            
+            <!-- Description -->
+            <div class="col-span-2">
+              <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+              <textarea 
+                id="description" 
+                formControlName="description"
+                rows="5"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Enter book description"
+              ></textarea>
+              <div *ngIf="f['description'].touched && f['description'].invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="f['description'].errors?.['required']">Description is required</div>
+                <div *ngIf="f['description'].errors?.['minlength']">Description must be at least 50 characters</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pt-4 flex justify-end space-x-4">
+            <button 
+              type="button" 
+              (click)="resetForm()"
+              class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit"
+              [disabled]="bookForm.invalid || isSubmitting"
+              class="px-6 py-2 bg-orange-500 rounded-lg text-white font-medium hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              <span *ngIf="isSubmitting" class="inline-block animate-spin mr-2">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+              Add Book
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

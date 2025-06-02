@@ -1,0 +1,86 @@
+// Custom animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Improved form control styles
+:host ::ng-deep {
+  input:focus, 
+  select:focus, 
+  textarea:focus {
+    box-shadow: 0 0 0 2px rgba(254, 119, 67, 0.2);
+  }
+  
+  // Input type number - hide arrows
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+  
+  // File upload hover effect
+  .relative input[type="file"]:hover + img,
+  .relative input[type="file"]:focus + img {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  
+  // Fancy animation for file drop area
+  .border-dashed {
+    position: relative;
+    overflow: hidden;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        rgba(255, 255, 255, 0) 10%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0) 30%
+      );
+      animation: shine 3s infinite linear;
+      transform: rotate(45deg);
+    }
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) rotate(45deg);
+    }
+  }
+}
+
+// Validation state styles
+.ng-invalid.ng-touched:not(form) {
+  border-color: #f56565;
+}
+
+// Animation for the loading spinner
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

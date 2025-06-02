@@ -1,0 +1,75 @@
+<div class="not-found-container">
+      <!-- Floating books background -->
+      <div class="floating-books">
+        <div class="book book-1" [style.animation-delay]="'0s'"></div>
+        <div class="book book-2" [style.animation-delay]="'2s'"></div>
+        <div class="book book-3" [style.animation-delay]="'4s'"></div>
+        <div class="book book-4" [style.animation-delay]="'1s'"></div>
+        <div class="book book-5" [style.animation-delay]="'3s'"></div>
+      </div>
+
+      <!-- Main content -->
+      <div class="content-wrapper">
+        <!-- Animated 404 text -->
+        <div class="error-code">
+          <span class="digit digit-4-1">4</span>
+          <span class="digit digit-0">
+            <div class="book-stack">
+              <div class="book-spine"></div>
+              <div class="book-spine"></div>
+              <div class="book-spine"></div>
+            </div>
+          </span>
+          <span class="digit digit-4-2">4</span>
+        </div>
+
+        <!-- Animated message -->
+        <div class="message-container">
+          <h2 class="main-message">Oops! Page Not Found</h2>
+          <p class="sub-message">
+            Looks like this page got lost between the shelves. 
+            Let's help you find your way back to our collection!
+          </p>
+        </div>
+
+        <!-- Animated books shelf -->
+        <div class="books-shelf">
+          <div class="shelf"></div>
+          <div class="books-row">
+            <div class="shelf-book book-red"></div>
+            <div class="shelf-book book-blue"></div>
+            <div class="shelf-book book-orange"></div>
+            <div class="shelf-book book-gray"></div>
+            <div class="shelf-book book-red"></div>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="action-buttons">
+          <button class="btn btn-primary" (click)="goHome()">
+            <span class="btn-icon">🏠</span>
+            Back to Home
+          </button>
+          <button class="btn btn-secondary" (click)="goToBooks()">
+            <span class="btn-icon">📚</span>
+            Browse Books
+          </button>
+        </div>
+
+        <!-- Search suggestion -->
+        <div class="search-suggestion">
+          <p>Or try searching for what you're looking for:</p>
+          <div class="search-box">
+            <input 
+              type="text" 
+              placeholder="Search books, authors, genres..."
+              class="search-input"
+              (keyup.enter)="onSearch($event)"
+            >
+            <button class="search-btn" (click)="onSearch()">
+              🔍
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>

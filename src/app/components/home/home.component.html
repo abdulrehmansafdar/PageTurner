@@ -1,0 +1,84 @@
+ <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-slate-800 to-slate-700 text-white py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          Welcome to <span class="text-orange-400">BookHaven</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
+          Discover your next favorite book from our curated collection of bestsellers, classics, and hidden gems.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-orange-400 hover:bg-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
+            Browse Books
+          </button>
+          <button class="border-2 border-white hover:bg-white hover:text-slate-800 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
+            Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Books Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Featured Books</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Handpicked selections from our editors featuring the latest releases and timeless classics.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <app-book-card 
+            *ngFor="let book of featuredBooks" 
+            [book]="book">
+          </app-book-card>
+        </div>
+        
+        <div class="text-center mt-12">
+          <a routerLink="/search" 
+             class="inline-block bg-orange-400 hover:bg-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
+            View All Books
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Browse by Category</h2>
+          <p class="text-xl text-gray-600">Find books in your favorite genres</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div *ngFor="let category of categories" 
+               class="text-center p-6 bg-gray-50 rounded-lg hover:bg-orange-50 hover:shadow-md transition-all duration-300 cursor-pointer group">
+            <div class="text-4xl mb-3">{{ category.icon }}</div>
+            <h3 class="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors">{{ category.name }}</h3>
+            <p class="text-sm text-gray-600 mt-1">{{ category.count }} books</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-slate-800 text-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-4">Stay Updated</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          Subscribe to our newsletter and be the first to know about new releases, special offers, and book recommendations.
+        </p>
+        <div class="max-w-md mx-auto flex">
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            class="flex-1 px-4 py-3 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          >
+          <button class="bg-orange-400 hover:bg-orange-500 px-6 py-3 rounded-r-lg font-semibold transition-colors">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </section>

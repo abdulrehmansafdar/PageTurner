@@ -1,0 +1,121 @@
+ <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
+
+      <div *ngIf="this.cartitems.length === 0" class="text-center py-12">
+        <div class="text-6xl mb-4">🛒</div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+        <p class="text-gray-600 mb-6">Add some books to get started!</p>
+        <a routerLink="/" 
+           class="inline-block bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+          Continue Shopping
+        </a>
+      </div>
+
+      <div *ngIf="this.cartitems.length! > 0" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-lg shadow-sm border">
+            <div class="p-6 border-b">
+              <h2 class="text-xl font-semibold">Cart Items</h2>
+            </div>
+            
+            <div class="divide-y">
+              <div *ngFor="let item of cartitems() " class="p-6 flex items-center space-x-4">
+                <img 
+                  [src]="item.book.coverImage" 
+                  [alt]="item.book.title"
+                  class="w-20 h-28 object-cover rounded-lg"
+                >
+                
+                <div class="flex-1">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    <a [routerLink]="['/book', item.book.id]" class="hover:text-orange-600">
+                      {{ item.book.title }}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600">by {{ item.book.author }}</p>
+                  <p class="text-sm text-gray-500">{{ item.book.category }}</p>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                  <div class="flex items-center border border-gray-300 rounded-lg">
+                    <button 
+                      (click)="updateQuantity(item.book.id, item.quantity - 1)"
+                      class="px-3 py-1 text-gray-600 hover:text-gray-800"
+                    >-</button>
+                    <span class="px-3 py-1 border-l border-r border-gray-300">{{ item.quantity }}</span>
+                    <button 
+                      (click)="updateQuantity(item.book.id, item.quantity + 1)"
+                      class="px-3 py-1 text-gray-600 hover:text-gray-800"
+                    >+</button>
+                  </div>
+                  
+                  <div class="text-right">
+                    <p class="font-semibold text-lg">\${{ (item.book.price * item.quantity).toFixed(2) }}</p>
+                    <p class="text-sm text-gray-500">\${{ item.book.price.toFixed(2) }} each</p>
+                  </div>
+                  
+                  <button 
+                    (click)="removeFromCart(item.book.id)"
+                    class="text-red-500 hover:text-red-700 p-2"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
+            <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between">
+                <span>Subtotal</span>
+                <span>\${{ this.cartService.totalPrice().toFixed(2) }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Shipping</span>
+                <span class="text-green-600">Free</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Tax</span>
+                <span>\${{ (totalPrice() * 0.08).toFixed(2) }}</span>
+              </div>
+              <div class="border-t pt-3">
+                <div class="flex justify-between font-semibold text-lg">
+                  <span>Total</span>
+                  <span>\${{ (totalPrice()  * 1.08).toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <button 
+              routerLink="/checkout"
+              class="w-full bg-orange-400 hover:bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors mb-3"
+            >
+              Proceed to Checkout
+            </button>
+            
+            <button 
+              routerLink="/"
+              class="w-full border-2 border-gray-300 hover:border-orange-400 text-gray-700 hover:text-orange-600 py-3 px-6 rounded-lg font-semibold transition-colors"
+            >
+              Continue Shopping
+            </button>
+            
+              <button 
+                (click)="clearCart()"
+                class="w-full border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white py-3 px-6 rounded-lg font-semibold transition-colors mt-3"
+              >
+                Clear Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
