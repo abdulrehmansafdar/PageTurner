@@ -22,7 +22,7 @@
             <div class="divide-y">
               <div *ngFor="let item of cartitems() " class="p-6 flex items-center space-x-4">
                 <img 
-                  [src]="item.book.coverImage" 
+                  [src]="item.book.imageUrl" 
                   [alt]="item.book.title"
                   class="w-20 h-28 object-cover rounded-lg"
                 >

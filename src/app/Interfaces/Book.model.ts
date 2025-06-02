@@ -1,11 +1,11 @@
 export interface Book {
-  id: string
+  id: number
   title: string
   author: string
   description: string
   isbn: string
   price: number
-  coverImage: string
+  imageUrl: string
   category: string
   rating: number
   reviews: number
@@ -58,5 +58,6 @@ export interface ApiResponse {
 }
 export interface Category {
   id: number
-  name: string
+  name: string,
+  description: string
 }

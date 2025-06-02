@@ -6,8 +6,9 @@ import { BookService } from '../../Services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Category } from '../../Interfaces/Book.model';
+import { ApiResponse, Category } from '../../Interfaces/Book.model';
 import { isPlatformBrowser } from '@angular/common';
+import { ApiCallService } from '../../Services/api-call.service';
 
 @Component({
   selector: 'app-add-book',
@@ -29,7 +30,8 @@ export class AddBookComponent implements OnInit {
     private bookService: BookService,
     private router: Router,
     private toastr: ToastrService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private apicall: ApiCallService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -116,12 +118,31 @@ export class AddBookComponent implements OnInit {
       ...this.bookForm.value,
       // The base64 image string is already in the form value (imageUrl field)
     };
-    
-    // Call the service method to add the book
-  
+    this.apicall.postWithToken<ApiResponse>('Book/AddBook', bookData).subscribe({
+      next: (response: ApiResponse) => {
+        if (response.responseCode === 200) {
+          this.toastr.success(response.responseMessage, 'Success');
+          this.resetForm();
+          this.router.navigate(['/books']);
+        } else {
+          this.toastr.error(response.errorMessages || 'Failed to add book', 'Error');
+        }
+      },
+      error: (error) => {
+        this.isSubmitting = false;
+        if (error.status === 400) {
+          this.toastr.error('Invalid data provided', 'Error');
+        } else {
+          this.toastr.error('Failed to add book', 'Error');
+        }
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      }
+    });
   }
 
-   resetForm(): void {
+    resetForm(): void {
     this.bookForm.reset();
     this.imagePreview = null;
     this.initForm(); // Re-initialize with default values

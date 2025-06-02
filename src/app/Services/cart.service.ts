@@ -11,6 +11,10 @@ export class CartService {
   Setcartitems(cartItems: CartItem[]): void {
     this.cartitems.set(cartItems);
     this.calculateTotal();
+
+  }
+  SetTotalItems(totalItems: number): void {
+    this.totalItems.set(totalItems);
   }
   calculateTotal(): void {
     const items = this.cartitems();
@@ -30,32 +34,26 @@ export class CartService {
     
     this.Setcartitems(currentItems);
   }
-  updateQuantity(bookId: string, quantity: number): void {
+  updateQuantity(bookId: number, quantity: number): void {
     const currentItems = this.cartitems();
-    const itemIndex = currentItems.findIndex(i => i.book.id === bookId);
+    const itemIndex = currentItems.findIndex(item => item.book.id === bookId);
     
     if (itemIndex > -1) {
       if (quantity <= 0) {
-        currentItems.splice(itemIndex, 1);
+        this.removeFromCart(bookId);
       } else {
         currentItems[itemIndex].quantity = quantity;
+        this.Setcartitems(currentItems);
       }
-      this.Setcartitems(currentItems);
     }
   }
-  removeFromCart(bookId: string): void {
+  removeFromCart(bookId: number): void {
     const currentItems = this.cartitems();
-    const itemIndex = currentItems.findIndex(i => i.book.id === bookId);
-    
-    if (itemIndex > -1) {
-      currentItems.splice(itemIndex, 1);
-      this.Setcartitems(currentItems);
-    }
+    const updatedItems = currentItems.filter(item => item.book.id !== bookId);
+    this.Setcartitems(updatedItems);
   }
   clearCart(): void {
     this.Setcartitems([]);
-    this.totalPrice.set(0);
-    this.totalItems.set(0);
   }
 
 

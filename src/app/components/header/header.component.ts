@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,13 +14,15 @@ import { CartService } from '../../Services/cart.service';
 })
 export class HeaderComponent implements OnInit {
   searchQuery = ""
-  cartItemCount$: Observable<number>
+ totalItems!: number;
 
   constructor(
     private router: Router,
-    private cartService: CartService,
+    public cartService: CartService,
   ) {
-    this.cartItemCount$ = this.cartService.getCartItemCount()
+    effect(() => {
+      this.totalItems = this.cartService.totalItems();
+    });
   }
 
   ngOnInit(): void {}

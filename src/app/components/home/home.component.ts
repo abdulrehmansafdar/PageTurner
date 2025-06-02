@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Book } from '../../Interfaces/Book.model';
+import { ApiResponse, Book, Category } from '../../Interfaces/Book.model';
 import { BookService } from '../../Services/book.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ApiCallService } from '../../Services/api-call.service';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,20 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-featuredBooks: Book[] = []
 
-  categories = [
+
+  constructor(private bookService: BookService,private apicall :ApiCallService) {}
+   ngOnInit(): void {
+    this.loadALLBooks();
+    this.loadCategories();
+  }
+    get books(): Book[] {
+    return this.bookService.BooksSignal();
+    }
+    get categories():Category[]{
+    return this.bookService.CategoriesSignal();
+    }
+    categoriesH = [
     { name: "Fiction", icon: "📚", count: 245 },
     { name: "Non-Fiction", icon: "📖", count: 189 },
     { name: "Science Fiction", icon: "🚀", count: 156 },
@@ -23,10 +35,17 @@ featuredBooks: Book[] = []
     { name: "Mystery", icon: "🔍", count: 134 },
     { name: "Biography", icon: "👤", count: 98 },
   ]
-  constructor(private bookService: BookService) {}
-  ngOnInit(): void {
-    // this.bookService.getFeaturedBooks().subscribe((books) => {
-    //   this.featuredBooks = books
-    // })
+  loadALLBooks(): void {
+    this.apicall.getWithToken<Book[]>("Book").subscribe({
+      next: (response) => this.bookService.SetBooks(response),
+      error: (err) => console.error("Failed to fetch books:", err)
+    });
+  }
+
+  loadCategories(): void {
+    this.apicall.getWithToken<ApiResponse>("Book/GetCategories").subscribe({
+      next: (response) => this.bookService.SetCategories(response.responseData),
+      error: (err) => console.error("Failed to fetch categories:", err)
+    });
   }
 }

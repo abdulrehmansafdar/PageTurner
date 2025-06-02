@@ -29,6 +29,8 @@ export class CartComponent  implements OnInit {
     this.apicallService.getWithToken<ApiResponse>("cart").subscribe({
       next: (response: ApiResponse) => {
       this.cartService.Setcartitems(response.responseData as CartItem[]);
+      this.cartService.calculateTotal();
+      this.cartService.SetTotalItems(response.responseData.length);
       },
       error: (error) => {
         this.toastr.error("Failed to load cart items", "Error");
@@ -37,7 +39,7 @@ export class CartComponent  implements OnInit {
     
   }
 
-  updateQuantity(bookId: string, quantity: number): void {
+  updateQuantity(bookId: number, quantity: number): void {
     const value = {
       bookId: bookId,
       quantity: quantity
@@ -60,7 +62,7 @@ export class CartComponent  implements OnInit {
     });
   }
 
-  removeFromCart(bookId: string): void {
+  removeFromCart(bookId: number): void {
     this.apicallService.postWithToken<ApiResponse>(`Cart/RemoveFromCart?bookId=${bookId}`, null).subscribe((response: ApiResponse) => {
       if (response.responseCode == 200) {
         this.cartService.removeFromCart(bookId);
