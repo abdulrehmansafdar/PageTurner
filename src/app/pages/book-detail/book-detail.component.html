@@ -4,9 +4,9 @@
         <ol class="flex items-center space-x-2 text-sm text-gray-600">
           <li><a routerLink="/" class="hover:text-orange-600">Home</a></li>
           <li><span class="mx-2">/</span></li>
-          <li><span class="text-gray-400">{{ book.category }}</span></li>
+          <li><span class="text-gray-400">{{ book.Category }}</span></li>
           <li><span class="mx-2">/</span></li>
-          <li><span class="text-gray-900 font-medium">{{ book.title }}</span></li>
+          <li><span class="text-gray-900 font-medium">{{ book.Title }}</span></li>
         </ol>
       </nav>
 
@@ -15,8 +15,8 @@
         <div class="flex justify-center">
           <div class="max-w-md">
             <img 
-              [src]="book.imageUrl" 
-              [alt]="book.title"
+              [src]="book.ImageUrl" 
+              [alt]="book.Title"
               class="w-full h-auto rounded-lg shadow-lg"
             >
           </div>
@@ -25,17 +25,17 @@
         <!-- Book Details -->
         <div class="space-y-6">
           <div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ book.title }}</h1>
-            <p class="text-xl text-gray-600 mb-4">by {{ book.author }}</p>
-            
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ book.Title }}</h1>
+            <p class="text-xl text-gray-600 mb-4">by {{ book.Author }}</p>
+
             <div class="flex items-center mb-4">
               <div class="flex items-center mr-4">
                 <span class="text-yellow-400 text-lg mr-1">★</span>
-                <span class="text-lg font-semibold">{{ book.rating }}</span>
-                <span class="text-gray-600 ml-2">({{ book.reviews }} reviews)</span>
+                <span class="text-lg font-semibold">{{ book.Rating }}</span>
+                <span class="text-gray-600 ml-2">({{ book.Reviews }} reviews)</span>
               </div>
               <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
-                {{ book.category }}
+                {{ book.Category }}
               </span>
             </div>
           </div>
@@ -43,7 +43,7 @@
           <!-- Price and Add to Cart -->
           <div class="bg-gray-50 p-6 rounded-lg">
             <div class="flex items-center justify-between mb-4">
-              <span class="text-3xl font-bold text-orange-600">\${{ book.price.toFixed(2) || '0.00' }}</span>
+              <span class="text-3xl font-bold text-orange-600">\${{ book.Price.toFixed(2) || '0.00' }}</span>
               <span class="text-green-600 font-medium">✓ In Stock</span>
             </div>
             
@@ -65,7 +65,7 @@
               (click)="addToCart()"
               class="w-full bg-orange-400 hover:bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors mb-3"
             >
-              Add to Cart - \${{ ((book.price || 0) * quantity).toFixed(2) }}
+              Add to Cart - \${{ ((book.Price || 0) * quantity).toFixed(2) }}
             </button>
             
             <button class="w-full border-2 border-gray-300 hover:border-orange-400 text-gray-700 hover:text-orange-600 py-3 px-6 rounded-lg font-semibold transition-colors">
@@ -79,19 +79,19 @@
             <div class="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span class="font-medium text-gray-700">ISBN:</span>
-                <span class="text-gray-600 ml-2">{{ book.isbn }}</span>
+                <span class="text-gray-600 ml-2">{{ book.ISBN }}</span>
               </div>
               <div>
                 <span class="font-medium text-gray-700">Pages:</span>
-                <span class="text-gray-600 ml-2">{{ book.pages }}</span>
+                <span class="text-gray-600 ml-2">{{ book.Pages }}</span>
               </div>
               <div>
                 <span class="font-medium text-gray-700">Publisher:</span>
-                <span class="text-gray-600 ml-2">{{ book.publisher }}</span>
+                <span class="text-gray-600 ml-2">{{ book.Publisher }}</span>
               </div>
               <div>
                 <span class="font-medium text-gray-700">Published:</span>
-                <span class="text-gray-600 ml-2">{{ book.publishDate | date:'mediumDate' }}</span>
+                <span class="text-gray-600 ml-2">{{ book.PublishedDate | date:'mediumDate' }}</span>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
       <!-- Description -->
       <div class="mt-12">
         <h3 class="text-2xl font-semibold text-gray-900 mb-4">Description</h3>
-        <p class="text-gray-700 leading-relaxed text-lg">{{ book.description }}</p>
+        <p class="text-gray-700 leading-relaxed text-lg">{{ book.Description }}</p>
       </div>
 
       <!-- Reviews Section -->
@@ -109,12 +109,12 @@
         <h3 class="text-2xl font-semibold text-gray-900 mb-6">Customer Reviews</h3>
         <div class="bg-gray-50 p-6 rounded-lg">
           <div class="flex items-center mb-4">
-            <span class="text-3xl font-bold mr-2">{{ book.rating }}</span>
+            <span class="text-3xl font-bold mr-2">{{ book.Rating }}</span>
             <div>
               <div class="flex items-center mb-1">
                 <span class="text-yellow-400 text-lg">★★★★☆</span>
               </div>
-              <p class="text-gray-600">Based on {{ book.reviews }} reviews</p>
+              <p class="text-gray-600">Based on {{ book.Reviews }} reviews</p>
             </div>
           </div>
           

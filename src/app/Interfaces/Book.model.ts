@@ -1,17 +1,17 @@
 export interface Book {
   id: number
-  title: string
-  author: string
-  description: string
-  isbn: string
-  price: number
-  imageUrl: string
-  category: string
-  rating: number
-  reviews: number
-  pages: number
-  publisher: string
-  publishDate: string
+  Title: string
+  Author: string
+  Description: string
+  ISBN: string
+  Price: number
+  ImageUrl: string
+  Category: string
+  Rating: number
+  Reviews: number
+  Pages: number
+  Publisher: string
+  PublishedDate: string
 }
 
 export interface CartItem {

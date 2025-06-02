@@ -18,7 +18,7 @@ export class CartService {
   }
   calculateTotal(): void {
     const items = this.cartitems();
-    const total = items.reduce((acc, item) => acc + (item.book.price * item.quantity), 0);
+    const total = items.reduce((acc, item) => acc + (item.book.Price * item.quantity), 0);
     this.totalPrice.set(total);
   
   }

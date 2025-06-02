@@ -28,7 +28,7 @@ get books(): Book[] {
 
   get filteredBooks(): Book[] {
     return this.books.filter(book =>
-      book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      book.Title.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
 

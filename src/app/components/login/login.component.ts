@@ -5,10 +5,11 @@ import { AuthService } from '../../Services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ApiCallService } from '../../Services/api-call.service';
 import { ApiResponse } from '../../Interfaces/Book.model';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule,ToastrModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -26,10 +27,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private apicall: ApiCallService,
+    private toastr: ToastrService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
-      email: ["", [Validators.required, Validators.email]],
+      username: ["", [Validators.required, Validators.minLength(2)]],
       password: ["", Validators.required],
       rememberMe: [false],
     })
@@ -52,6 +54,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.error = "Please fill in all required fields correctly."
+      this.toastr.error(this.error, "Validation Error");
       return
     }
 
@@ -59,26 +62,37 @@ export class LoginComponent implements OnInit {
     this.error = null
     this.success = null
 
-    const { name, password } = this.loginForm.value
+    const { username, password } = this.loginForm.value
+    const payload = {
+      username: username.trim(),
+      password: password.trim()
+    }
 
-    this.apicall.post<ApiResponse>('User/login', { name, password }).subscribe({
+    this.apicall.post<ApiResponse>('User/login', payload).subscribe({
+      
       next: (response: ApiResponse) => {
+        debugger
         if (response.responseCode === 200) {
           // Store token in localStorage
           if (isPlatformBrowser(this.platformId)) {
             localStorage.setItem("token", response.responseData.token);
           }
           this.success = "Login successful! Redirecting..."
+          this.toastr.success(this.success, "Login Success");
           setTimeout(() => {
-            this.router.navigate([this.returnUrl])
-          }, 1200)
+            this.router.navigate(["/home"]);
+          }, 2000);
+          
+          
         } else {
           this.error = response.errorMessages || "Login failed. Please check your credentials."
+          this.toastr.error(this.error, "Login Error");
         }
         this.isLoading = false
       },
       error: (err: any) => {
         this.error = err.error?.errorMessages || err.message || "An error occurred during login"
+        this.toastr.error("Error occurred, please try again", "Login Error");
         this.isLoading = false
       },
     })

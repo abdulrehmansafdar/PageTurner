@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
     }
 
     // Monitor password strength
-    this.signupForm.get('password')?.valueChanges.subscribe(password => {
+    this.signupForm.get('UserPassword')?.valueChanges.subscribe(password => {
       this.passwordStrength = this.calculatePasswordStrength(password);
     });
   }
