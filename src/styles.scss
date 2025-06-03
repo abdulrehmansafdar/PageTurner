@@ -234,3 +234,45 @@ textarea:focus {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
+
+/* Enhanced particle effects */
+.particle-glow {
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.6),
+              0 0 20px rgba(249, 115, 22, 0.4),
+              0 0 30px rgba(249, 115, 22, 0.2);
+}
+
+/* Advanced gradient backgrounds */
+.bg-gradient-cosmic {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Enhanced glassmorphism */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gradient-primary {
+    background: #ff4500;
+  }
+  
+  .text-primary {
+    color: #ff4500;
+  }
+}

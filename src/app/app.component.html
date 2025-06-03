@@ -1,6 +1,8 @@
+ <app-loader></app-loader>
 <div class="min-h-screen bg-gray-50 flex flex-col">
       <app-header *ngIf="!hideHeaderFooter"></app-header>
       <main [class]="hideHeaderFooter ? 'min-h-screen' : 'flex-1'">
+       
         <router-outlet></router-outlet>
       </main>
       <app-footer *ngIf="!hideHeaderFooter"></app-footer>

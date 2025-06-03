@@ -8,10 +8,12 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AddBookComponent } from './pages/addbook/addbook.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 
 export const routes: Routes = [
-  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "", component:LandingComponent},
+  { path: "landing", component: LandingComponent },
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "home", component: HomeComponent },

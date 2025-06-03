@@ -1,0 +1,360 @@
+<!-- Hero Section with Animated Background -->
+<section class="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full opacity-20 animate-float blur-sm"></div>
+    <div class="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full opacity-25 animate-float-delayed blur-sm"></div>
+    <div class="absolute bottom-32 left-1/4 w-40 h-40 bg-gradient-to-r from-orange-500 to-red-500 rounded-full opacity-15 animate-float-slow blur-sm"></div>
+    <div class="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-30 animate-pulse blur-sm"></div>
+    <div class="absolute bottom-40 right-10 w-28 h-28 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-float blur-sm"></div>
+  </div>
+
+  <!-- Floating Book Icons -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-1/6 text-6xl opacity-30 animate-float text-orange-300 drop-shadow-lg">📚</div>
+    <div class="absolute top-3/4 right-1/4 text-4xl opacity-25 animate-float-delayed text-purple-400 drop-shadow-lg">📖</div>
+    <div class="absolute bottom-1/4 left-3/4 text-5xl opacity-20 animate-float-slow text-pink-300 drop-shadow-lg">📕</div>
+    <div class="absolute top-1/2 left-1/12 text-3xl opacity-30 animate-bounce-gentle text-blue-300 drop-shadow-lg">✨</div>
+    <div class="absolute top-1/6 right-1/6 text-4xl opacity-25 animate-float text-yellow-300 drop-shadow-lg">⭐</div>
+  </div>
+
+  <!-- Particle Effects -->
+  <div class="absolute inset-0">
+    <div class="particle-container">
+      <div *ngFor="let particle of particles" 
+           class="particle"
+           [style.left.%]="particle.x"
+           [style.top.%]="particle.y"
+           [style.animation-delay.s]="particle.delay">
+      </div>
+    </div>
+  </div>
+
+  <div class="relative z-10 container mx-auto px-4 py-20 flex items-center min-h-screen">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full justify-items-center">
+      <!-- Left Content -->
+      <div class="text-white space-y-6 animate-slide-in-left">
+        <div class="space-y-6">
+          <div class="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/20 to-purple-500/20 rounded-full border border-orange-400/30 backdrop-blur-sm">
+            <span class="text-orange-300 font-semibold">✨ Welcome to Page Turner</span>
+          </div>
+          
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+            <span class="block text-white drop-shadow-lg">Discover</span>
+            <span class="block bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Your Next</span>
+            <span class="block text-white drop-shadow-lg">Adventure</span>
+          </h1>
+          <div class="w-32 h-1 bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 rounded-full animate-pulse"></div>
+        </div>
+        
+        <p class="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-lg drop-shadow-md">
+          Immerse yourself in a world of endless stories. From bestselling novels to hidden gems, 
+          find your perfect book companion and embark on literary journeys that will transform your world.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 ">
+          <button 
+            routerLink="/login"
+            class="group relative px-6 py-2 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white font-bold text-lg rounded-full 
+                   hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 
+                   shadow-2xl hover:shadow-orange-500/30 backdrop-blur-sm border border-white/20"
+          >
+            <span class="relative z-10 flex items-center justify-center">
+              Get Started Now
+              <svg class="ml-2 w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+          
+          <button 
+            (click)="scrollToFeatures()"
+            class="px-10 py-5 border-2 border-gradient-to-r from-orange-400 to-purple-400 text-white font-bold text-lg rounded-full 
+                   hover:bg-gradient-to-r hover:from-orange-400/20 hover:to-purple-400/20 transition-all duration-300 backdrop-blur-sm
+                   relative overflow-hidden group"
+          >
+            <span class="relative z-10">Explore Features</span>
+            <div class="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-purple-400/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          </button>
+        </div>
+        
+        <!-- Enhanced Stats -->
+        <div class="grid grid-cols-3 gap-8 ">
+          <div class="text-center group">
+            <div class="text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">10K+</div>
+            <div class="text-gray-300 font-medium">Books Available</div>
+            <div class="w-8 h-1 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full mx-auto mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="text-center group">
+            <div class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">5K+</div>
+            <div class="text-gray-300 font-medium">Happy Readers</div>
+            <div class="w-8 h-1 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full mx-auto mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="text-center group">
+            <div class="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">24/7</div>
+            <div class="text-gray-300 font-medium">Support</div>
+            <div class="w-8 h-1 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mx-auto mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Content - Enhanced Hero Image -->
+      <div class="relative animate-slide-in-right">
+        <div class="relative">
+          <!-- Glowing Background -->
+          <div class="absolute inset-0 bg-gradient-to-r from-orange-400/20 via-pink-400/20 to-purple-400/20 rounded-3xl blur-3xl animate-pulse"></div>
+          
+          <!-- Main Hero Image -->
+          <div class="relative z-10 transform hover:rotate-0 transition-all duration-700 group">
+            <div class="relative overflow-hidden rounded-3xl shadow-2xl border border-white/20 backdrop-blur-sm">
+              <img 
+                src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                alt="Beautiful library with books"
+                class="w-full max-w-lg mx-auto group-hover:scale-105 transition-transform duration-700"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-purple-900/40 via-transparent to-orange-500/20 group-hover:from-purple-900/60 transition-all duration-500"></div>
+            </div>
+          </div>
+          
+          <!-- Enhanced Floating Elements -->
+          <div class="absolute z-[999] -top-6 -right-6 bg-gradient-to-r from-orange-400 to-pink-400 text-white p-6 rounded-2xl shadow-2xl animate-bounce-gentle border border-white/20 backdrop-blur-sm">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          
+          <div class="absolute z-[999] -bottom-8 -left-8 bg-white/95 text-slate-800 p-6 rounded-2xl shadow-2xl animate-float border border-orange-400/30 backdrop-blur-sm">
+            <div class="flex items-center space-x-3">
+              <div class="text-3xl">⭐</div>
+              <div>
+                <div class="font-bold text-xl bg-gradient-to-r from-orange-500 to-purple-500 bg-clip-text text-transparent">4.9/5</div>
+                <div class="text-sm text-gray-600 font-medium">Reader Rating</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Additional floating badge -->
+          <div class="absolute z-[999] top-1/2 -right-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white p-4 rounded-xl shadow-xl animate-float-delayed border border-white/20 backdrop-blur-sm">
+            <div class="text-center">
+              <div class="text-2xl font-bold">📖</div>
+              <div class="text-xs font-semibold">New Arrivals</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Enhanced Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <div class="w-8 h-12 border-2 border-orange-400 rounded-full flex justify-center backdrop-blur-sm bg-white/10">
+      <div class="w-2 h-4 bg-gradient-to-b from-orange-400 to-purple-400 rounded-full mt-2 animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced Features Section -->
+<section id="features" class="py-24 bg-gradient-to-b from-gray-50 via-white to-purple-50 relative overflow-hidden">
+  <!-- Background decorations -->
+  <div class="absolute inset-0">
+    <div class="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-orange-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-pink-200/30 to-blue-200/30 rounded-full blur-3xl"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-20 animate-fade-in-up">
+      <div class="inline-block px-6 py-3 bg-gradient-to-r from-orange-100 to-purple-100 rounded-full border border-orange-200 mb-6">
+        <span class="text-purple-700 font-semibold">🚀 Why Choose BookHaven?</span>
+      </div>
+      <h2 class="text-6xl md:text-7xl font-bold text-slate-800 mb-8">
+        Experience the <span class="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Future</span> of Reading
+      </h2>
+      <p class="text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+        Discover cutting-edge features designed to transform your reading journey into an extraordinary adventure.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div *ngFor="let feature of features; let i = index" 
+           class="group relative bg-white/60 backdrop-blur-sm p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/50"
+           [style.animation-delay]="i * 200 + 'ms'">
+        <!-- Gradient background on hover -->
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-pink-500/5 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <div class="relative z-10">
+          <div class="text-6xl mb-8 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 drop-shadow-lg">{{ feature.icon }}</div>
+          <h3 class="text-2xl font-bold text-slate-800 mb-6 group-hover:text-purple-700 transition-colors duration-300">{{ feature.title }}</h3>
+          <p class="text-gray-600 leading-relaxed text-lg">{{ feature.description }}</p>
+          <div class="mt-8 w-16 h-2 bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 rounded-full group-hover:w-32 transition-all duration-500"></div>
+        </div>
+        
+        <!-- Hover glow effect -->
+        <div class="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-400/20 via-pink-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced Popular Categories -->
+<section class="py-24 bg-gradient-to-br from-slate-800 via-purple-900 to-slate-900 relative overflow-hidden">
+  <!-- Background effects -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-0 w-full h-full opacity-20">
+      <div class="grid grid-cols-12 gap-4 h-full">
+        <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]" class="bg-white/5 rounded-full"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-20">
+      <div class="inline-block px-6 py-3 bg-gradient-to-r from-orange-500/20 to-purple-500/20 rounded-full border border-orange-400/30 backdrop-blur-sm mb-6">
+        <span class="text-orange-300 font-semibold">📚 Explore Collections</span>
+      </div>
+      <h2 class="text-6xl md:text-7xl font-bold text-white mb-8">
+        Popular <span class="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">Categories</span>
+      </h2>
+      <p class="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+        Dive into carefully curated collections spanning every genre, mood, and literary adventure you can imagine.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+      <div *ngFor="let category of categories; let i = index" 
+           class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-500 via-pink-500 to-purple-500 p-8 text-center 
+                  hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 transition-all duration-500 transform hover:scale-110 cursor-pointer
+                  shadow-2xl hover:shadow-orange-500/30 border border-white/20 backdrop-blur-sm"
+           [style.animation-delay]="i * 150 + 'ms'">
+        
+        <div class="relative z-10">
+          <div class="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 drop-shadow-lg">{{ category.icon }}</div>
+          <h3 class="text-white font-bold text-xl mb-3 drop-shadow-md">{{ category.name }}</h3>
+          <p class="text-orange-100 text-sm font-medium">{{ category.count }} books</p>
+        </div>
+        
+        <!-- Animated background effect -->
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <!-- Glow effect -->
+        <div class="absolute -inset-2 bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-xl"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced Newsletter Section -->
+<section class="py-24 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 relative overflow-hidden">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="grid grid-cols-8 gap-8 h-full">
+      <div *ngFor="let i of [1,2,3,4,5,6,7,8]" class="bg-white/20 transform rotate-45"></div>
+    </div>
+  </div>
+  
+  <div class="container mx-auto px-4 text-center relative z-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="inline-block px-6 py-3 bg-white/20 rounded-full border border-white/30 backdrop-blur-sm mb-8">
+        <span class="text-white font-semibold">✨ Stay Connected</span>
+      </div>
+      
+      <h2 class="text-6xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg">
+        Join the <span class="text-yellow-300">BookHaven</span> Community
+      </h2>
+      <p class="text-2xl text-white/90 mb-12 leading-relaxed drop-shadow-md">
+        Get exclusive book recommendations, early access to new releases, and special offers delivered straight to your inbox.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 max-w-2xl mx-auto mb-10">
+        <input 
+          type="email" 
+          placeholder="Enter your email address"
+          class="flex-1 px-8 py-5 rounded-2xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-white/50 bg-white/95 backdrop-blur-sm shadow-xl border border-white/30"
+        >
+        <button class="px-10 py-5 bg-white text-purple-600 font-bold text-lg rounded-2xl 
+                       hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl
+                       border border-white/30 backdrop-blur-sm">
+          Subscribe Now
+        </button>
+      </div>
+      
+      <div class="flex justify-center space-x-8 text-white/80 text-lg">
+        <div class="flex items-center">
+          <span class="text-green-300 mr-2">✓</span>
+          No spam
+        </div>
+        <div class="flex items-center">
+          <span class="text-green-300 mr-2">✓</span>
+          Unsubscribe anytime
+        </div>
+        <div class="flex items-center">
+          <span class="text-green-300 mr-2">✓</span>
+          Exclusive content
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced CTA Section -->
+<section class="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+  <!-- Animated background -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-orange-500/10 via-pink-500/10 to-purple-500/10 animate-gradient-shift"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 text-center relative z-10">
+    <div class="max-w-5xl mx-auto text-white">
+      <div class="inline-block px-6 py-3 bg-gradient-to-r from-orange-500/20 to-purple-500/20 rounded-full border border-orange-400/30 backdrop-blur-sm mb-8">
+        <span class="text-orange-300 font-semibold">🎉 Ready to Begin?</span>
+      </div>
+      
+      <h2 class="text-7xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-orange-300 to-purple-300 bg-clip-text text-transparent drop-shadow-lg">
+        Start Your Journey
+      </h2>
+      <p class="text-3xl mb-12 opacity-90 leading-relaxed drop-shadow-md">
+        Join thousands of readers and unlock unlimited access to literary adventures waiting for you.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 justify-center mb-10">
+        <button 
+          routerLink="/signup"
+          class="group px-12 py-6 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white font-bold text-2xl rounded-2xl 
+                 hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 
+                 shadow-2xl hover:shadow-orange-500/30 border border-white/20 backdrop-blur-sm"
+        >
+          <span class="flex items-center justify-center">
+            Create Free Account
+            <svg class="ml-3 w-7 h-7 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </span>
+        </button>
+        
+        <button 
+          routerLink="/login"
+          class="px-12 py-6 border-2 border-white/50 text-white font-bold text-2xl rounded-2xl 
+                 hover:bg-white hover:text-purple-600 transition-all duration-300 backdrop-blur-sm
+                 shadow-xl hover:shadow-white/20"
+        >
+          Sign In
+        </button>
+      </div>
+      
+      <div class="flex justify-center space-x-8 text-orange-200 text-lg">
+        <div class="flex items-center">
+          <span class="text-green-400 mr-2 text-xl">✓</span>
+          Free to join
+        </div>
+        <div class="flex items-center">
+          <span class="text-green-400 mr-2 text-xl">✓</span>
+          No credit card required
+        </div>
+        <div class="flex items-center">
+          <span class="text-green-400 mr-2 text-xl">✓</span>
+          Cancel anytime
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

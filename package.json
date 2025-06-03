@@ -24,6 +24,7 @@
     "@sweetalert2/ngx-sweetalert2": "^13.0.0",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
+    "ngx-spinner": "^19.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.22.0",
