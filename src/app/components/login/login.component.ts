@@ -4,8 +4,9 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ApiCallService } from '../../Services/api-call.service';
-import { ApiResponse } from '../../Interfaces/Book.model';
+import { ApiResponse, User } from '../../Interfaces/Book.model';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../Services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private apicall: ApiCallService,
     private toastr: ToastrService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private loader:LoaderService
   ) {
     this.loginForm = this.fb.group({
       username: ["", [Validators.required, Validators.minLength(2)]],
@@ -52,6 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loader.show()
     if (this.loginForm.invalid) {
       this.error = "Please fill in all required fields correctly."
       this.toastr.error(this.error, "Validation Error");
@@ -77,6 +80,18 @@ export class LoginComponent implements OnInit {
           if (isPlatformBrowser(this.platformId)) {
             localStorage.setItem("token", response.responseData.token);
           }
+          // Set user data in AuthService
+          const user :User = {
+            username: response.responseData.username,
+            email: response.responseData.email,
+            Role : response.responseData.role || "User"
+          };
+          this.authService.setUser(user);
+          if (isPlatformBrowser(this.platformId)){
+            localStorage.setItem("username", user.username);
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("Role", user.Role);
+          }
           this.success = "Login successful! Redirecting..."
           this.toastr.success(this.success, "Login Success");
           setTimeout(() => {
@@ -89,12 +104,15 @@ export class LoginComponent implements OnInit {
           this.toastr.error(this.error, "Login Error");
         }
         this.isLoading = false
+        this.loader.hide();
       },
       error: (err: any) => {
         this.error = err.error?.errorMessages || err.message || "An error occurred during login"
         this.toastr.error("Error occurred, please try again", "Login Error");
         this.isLoading = false
+        this.loader.hide();
       },
+      
     })
   }
 

@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CommonModule,isPlatformBrowser } from '@angular/common';
+import { Component, OnDestroy, OnInit,PLATFORM_ID,Inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,7 +11,10 @@ import { Subscription } from 'rxjs';
 })
 export class LandingComponent implements OnInit, OnDestroy {
   private animationSubscription?: Subscription
-  
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ){}
   particles: Array<{x: number, y: number, delay: number}> = []
 
   // Helper array for grid patterns
@@ -84,6 +87,17 @@ export class LandingComponent implements OnInit, OnDestroy {
         y: Math.random() * 100,
         delay: Math.random() * 8
       })
+    }
+  }
+  checklogin(url: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        this.router.navigate([url])
+      }
+      else {
+        this.router.navigate(["/home"])
+      }
     }
   }
 

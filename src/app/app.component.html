@@ -1,9 +1,17 @@
- <app-loader></app-loader>
+<app-loader></app-loader>
 <div class="min-h-screen bg-gray-50 flex flex-col">
       <app-header *ngIf="!hideHeaderFooter"></app-header>
       <main [class]="hideHeaderFooter ? 'min-h-screen' : 'flex-1'">
-       
-        <router-outlet></router-outlet>
+       <div class="flex">
+        <aside class="md:w-[5%] w-[0%]" *ngIf="!hideHeaderFooter">
+          <app-side-bar></app-side-bar>
+        </aside>
+        <div [class]="hideHeaderFooter ? 'w-full' : 'md:w-[95%] w-[100%] pt-12' ">
+          <router-outlet></router-outlet>
+          <app-footer *ngIf="!hideHeaderFooter"></app-footer>
+        </div>
+       </div>
+        
       </main>
-      <app-footer *ngIf="!hideHeaderFooter"></app-footer>
+      
     </div>

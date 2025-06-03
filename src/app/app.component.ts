@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy,PLATFORM_ID,Inject } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule,isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoginComponent } from "./components/login/login.component";
@@ -9,11 +9,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthService } from './Services/auth.service';
 import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from './Services/loader.service';
+import { SideBarComponent } from "./components/side-bar/side-bar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, RouterModule, CommonModule, LoaderComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, RouterModule, CommonModule, LoaderComponent, SideBarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private loader: LoaderService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,11 @@ this.loader.show();
 , 1500); 
   
 });
+      const token = localStorage.getItem("token");
+      if(token)
+      {
+        this.router.navigate(['/home']);
+      }
     }
    
   }

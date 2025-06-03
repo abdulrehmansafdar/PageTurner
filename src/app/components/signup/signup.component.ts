@@ -4,10 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ApiCallService } from '../../Services/api-call.service';
 import { ApiResponse } from '../../Interfaces/Book.model';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../Services/loader.service';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, CommonModule,RouterModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterModule,ToastrModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -24,7 +26,9 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private apicall: ApiCallService
+    private apicall: ApiCallService,
+    private toastr:ToastrService,
+    private loader:LoaderService
   ) {
     this.signupForm = this.fb.group({
       UserName: ['', [Validators.required, Validators.minLength(2)]],
@@ -101,6 +105,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loader.show();
     if (this.signupForm.invalid) {
       this.markFormGroupTouched();
       this.error = 'Please fill in all required fields correctly.';
@@ -122,17 +127,22 @@ export class SignupComponent implements OnInit {
       next: (response: ApiResponse) => {
         if (response.responseCode === 200) {
           this.success = 'Account created successfully! Redirecting to login...';
+          this.toastr.success(this.success,"Success")
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 2000);
+          }, 2500);
         } else {
           this.error = response.errorMessages || 'Registration failed. Please try again.';
+          this.toastr.error(this.error,"Error");
         }
         this.isLoading = false;
+        this.loader.hide();
       },
       error: (err: any) => {
         this.error = err.error?.errorMessages || err.message || 'An error occurred during registration';
+        this.toastr.error(this.error|| "Something went wrong, Try again","Error");
         this.isLoading = false;
+        this.loader.hide();
       }
     });
   }

@@ -21,7 +21,7 @@ export const routes: Routes = [
   { path: "search", component: SearchResultComponent },
   { path: "cart", component: CartComponent },
   { path: "checkout", component: CheckoutComponent },
-  { path: "AddBook", component: AddBookComponent },
+  { path: "Add-book", component: AddBookComponent },
   { path: "**", component: NotFoundComponent },
 ]
 

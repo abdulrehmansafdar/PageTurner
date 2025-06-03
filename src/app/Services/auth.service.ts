@@ -1,25 +1,13 @@
-import { Injectable, signal, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, Inject, PLATFORM_ID, WritableSignal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { ApiCallService } from './api-call.service';
+import { User, LoginRequest, AuthResponse, RegisterRequest } from '../Interfaces/Book.model';
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
 
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-}
 
-export interface AuthResponse {
-  token: string;
-  user: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +21,12 @@ export class AuthService {
   
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+
+  User :WritableSignal<User> = signal<User>({
+    username: '',
+    email: '',
+    Role: 'User'
+  });
 
   // Routes where header and footer should be hidden
   private authRoutes = ['/login', '/signup', '/landing', '/', '/register', '/forgot-password'];
@@ -54,6 +48,12 @@ export class AuthService {
 
     this.checkAuthStatus();
   }
+  setUser(user: User): void {
+    this.User.set(user);
+  }
+  getUser(): User {
+    return this.User();
+  }
 
   private checkRoute(url: string): void {
     const shouldHide = this.authRoutes.some(route => 
@@ -73,11 +73,11 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.apiService.post<AuthResponse>('auth/login', credentials);
+    return this.apiService.post<AuthResponse>('User/login', credentials);
   }
 
   register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.apiService.post<AuthResponse>('auth/register', userData);
+    return this.apiService.post<AuthResponse>('User/register', userData);
   }
 
   logout(): void {
@@ -86,6 +86,12 @@ export class AuthService {
     }
     this.isLoggedInSubject.next(false);
     this.currentUserSubject.next(null);
+    this.User.set({
+      username: 'U',
+      email: '',
+      Role: ''
+    });
+    localStorage.clear();
   }
 
   setAuthData(response: AuthResponse): void {

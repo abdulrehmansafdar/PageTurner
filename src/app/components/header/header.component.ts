@@ -1,9 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, effect, OnInit } from '@angular/core';
+import { CommonModule,isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, OnInit,PLATFORM_ID,Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CartService } from '../../Services/cart.service';
+import { AuthService } from '../../Services/auth.service';
+import { User } from '../../Interfaces/Book.model';
 
 @Component({
   selector: 'app-header',
@@ -15,22 +17,56 @@ import { CartService } from '../../Services/cart.service';
 export class HeaderComponent implements OnInit {
   searchQuery = ""
  totalItems!: number;
+ currentUser !: User
 
   constructor(
     private router: Router,
     public cartService: CartService,
+    public auth:AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     effect(() => {
       this.totalItems = this.cartService.totalItems();
+      this.currentUser = this.auth.getUser();
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUser = this.auth.getUser();
+    if (isPlatformBrowser(this.platformId)) {
+      debugger
+      const user:User ={
+       
+        username: localStorage.getItem("username") || "",
+        email: localStorage.getItem("email") || "",
+        Role: localStorage.getItem("Role") || "",
+      };
+      console.log("User from localStorage:", user);
+      if (user.username && user.email && user.Role) {
+        console.log("current before setting: if", this.auth.getUser());
+        this.auth.setUser(user);
+      } else {
+        console.log("current before setting: else", this.auth.getUser());
+        this.auth.setUser({
+          username: "",
+          email: "",
+          Role: ""
+        });
+      }
+      } 
+      console.log("Current User:", this.currentUser);
+    }
+
+  
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
       this.router.navigate(["/search"], { queryParams: { q: this.searchQuery.trim() } })
     }
+    else if(this.searchQuery.trim() === "") {
+      
+    }
+    
   }
 
 }
