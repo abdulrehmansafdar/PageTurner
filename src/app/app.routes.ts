@@ -11,6 +11,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { AddCategoryComponent } from './pages/add-category/add-category.component';
 import { ShowRequestsComponent } from './pages/show-requests/show-requests.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 
 export const routes: Routes = [
@@ -33,6 +34,10 @@ export const routes: Routes = [
     path: 'book-requests',
     component: ShowRequestsComponent,
     title: 'Book Requests | Page Turner'
+  },
+   {
+    path: 'verify-email',
+    component: VerifyEmailComponent
   },
   { path: "**", component: NotFoundComponent },
 ]
