@@ -1,0 +1,88 @@
+Abdul Rehman\bookstore_frontend\src\app\pages\checkout\checkout.component.scss
+:host {
+  display: block;
+}
+
+// Custom scrollbar for cart items
+.overflow-y-auto {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+    
+    &:hover {
+      background: #ccc;
+    }
+  }
+}
+
+// Form styling enhancements
+input, select {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    border-color: #f97316;
+  }
+}
+
+// Subtle hover effects
+.rounded-lg, .rounded-xl {
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  }
+}
+
+// Add some nice transitions
+.bg-orange-500, .border-orange-400 {
+  transition: all 0.2s ease;
+}
+
+// Custom animation for the button
+button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  
+  &:not(:disabled):after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
+  
+  &:not(:disabled):focus:after {
+    animation: ripple 1s ease-out;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}

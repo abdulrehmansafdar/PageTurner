@@ -9,6 +9,8 @@ import { AddBookComponent } from './pages/addbook/addbook.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { AddCategoryComponent } from './pages/add-category/add-category.component';
+import { ShowRequestsComponent } from './pages/show-requests/show-requests.component';
 
 
 export const routes: Routes = [
@@ -22,6 +24,16 @@ export const routes: Routes = [
   { path: "cart", component: CartComponent },
   { path: "checkout", component: CheckoutComponent },
   { path: "Add-book", component: AddBookComponent },
+   {
+    path: 'add-category',
+    component: AddCategoryComponent,
+    title: 'Add Category | Page Turner'
+  },
+  {
+    path: 'book-requests',
+    component: ShowRequestsComponent,
+    title: 'Book Requests | Page Turner'
+  },
   { path: "**", component: NotFoundComponent },
 ]
 

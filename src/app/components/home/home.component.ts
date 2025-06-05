@@ -36,8 +36,11 @@ export class HomeComponent {
     { name: "Biography", icon: "👤", count: 98 },
   ]
   loadALLBooks(): void {
+    debugger
     this.apicall.getWithToken<Book[]>("Book").subscribe({
-      next: (response) => this.bookService.SetBooks(response),
+      next: (response) => {
+        debugger
+        this.bookService.SetBooks(response)},
       error: (err) => console.error("Failed to fetch books:", err)
     });
   }

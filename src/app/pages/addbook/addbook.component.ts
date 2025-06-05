@@ -38,10 +38,20 @@ export class AddBookComponent implements OnInit {
 
 
   ngOnInit(): void {
+    debugger
     this.initForm();
     this.loadCategories();
   }
   loadCategories() {
+    this.apicall.getWithToken<ApiResponse>('Category/GetAllCategories').subscribe({
+      next: (response: ApiResponse) => {
+                this.categories = response.responseData as Category[];
+        console.log('Categories loaded:', this.categories);
+      },
+      error: (error) => {
+        this.toastr.error('Failed to load categories', 'Error');
+      }
+    });
    
   }
 
@@ -120,10 +130,11 @@ export class AddBookComponent implements OnInit {
     };
     this.apicall.postWithToken<ApiResponse>('Book/AddBook', bookData).subscribe({
       next: (response: ApiResponse) => {
+        debugger
         if (response.responseCode === 200) {
           this.toastr.success(response.responseMessage, 'Success');
           this.resetForm();
-          this.router.navigate(['/books']);
+          this.router.navigate(['/home']);
         } else {
           this.toastr.error(response.errorMessages || 'Failed to add book', 'Error');
         }

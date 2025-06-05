@@ -1,43 +1,53 @@
-import { Component, HostListener, OnInit, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnInit, PLATFORM_ID, Inject, OnDestroy, effect } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../Services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroHome,heroPlusCircle,heroMagnifyingGlass,heroShoppingCart,heroCube,heroSquare3Stack3d,heroQuestionMarkCircle,heroArrowRightStartOnRectangle,heroInboxStack  } from '@ng-icons/heroicons/outline';
+import { CartService } from '../../Services/cart.service';
 // Define User interface
 
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,NgIcon],
   templateUrl: './side-bar.component.html',
-  styleUrl: './side-bar.component.scss'
+  styleUrl: './side-bar.component.scss',
+  viewProviders: [provideIcons({ heroHome, heroPlusCircle,heroCube,heroMagnifyingGlass,heroShoppingCart,heroSquare3Stack3d,heroQuestionMarkCircle,heroArrowRightStartOnRectangle,heroInboxStack  })]
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   expanded = false;
   showSidebar = false;
   isMobile = false;
+  cartcount = 0;
  
   hideSidebar = false;
   private subscription: Subscription = new Subscription();
 
   menuItems = [
-    { icon: "home", label: "Home", link: "/", exact: true },
-    { icon: "browse", label: "Browse Books", link: "/home", exact: false },
-    { icon: "categories", label: "Categories", link: "/categories", exact: false },
-    { icon: "cart", label: "Shopping Cart", link: "/cart", exact: false, badge: "3" },
-    { icon: "orders", label: "My Orders", link: "/orders", exact: false },
-    { icon: "help", label: "Help & Support", link: "/help", exact: false },
+    { icon: "heroHome", label: "Home", link: "/home", exact: true,badge:false,badgeCount: 0 },
+  { icon: "heroMagnifyingGlass", label: "Browse Books", link: "/search", exact: false,badge:false,badgeCount: 0 },
+  { icon: "heroPlusCircle", label: "Add Books", link: "/Add-book", exact: false,badge:false,badgeCount: 0 },
+  { icon: "heroShoppingCart", label: "Shopping Cart", link: "/cart", exact: false,badge:true, badgeCount: this.cartcount },
+  { icon: "heroCube", label: "My Orders", link: "/orders", exact: false,badge:false,badgeCount: 0 },
+  { icon: "heroInboxStack", label: "Book Requests", link: "/book-requests", exact: false,badge:false ,badgeCount: 0},
+  { icon: "heroSquare3Stack3d", label: "Categories", link: "/add-category", exact: false,badge:false ,badgeCount: 0},
+  { icon: "heroQuestionMarkCircle", label: "Help & Support", link: "/help", exact: false,badge:false,badgeCount: 0 },
   ];
+
 
   constructor(
     private authService: AuthService,
     public router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public cartService: CartService // Assuming cartService is part of AuthService
   ) {
-    
+    effect(() => {
+      this.cartcount = this.cartService.totalItems();
+        });
     this.checkScreenSize();
     
     // Subscribe to hideHeaderFooter$ to sync sidebar visibility with header/footer
@@ -54,8 +64,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    debugger
     // Initialize sidebar state based on screen size
     this.checkScreenSize();
+    this.cartcount = this.cartService.totalItems();
 
     // For desktop, we start with the sidebar collapsed if not on auth routes
     if (!this.isMobile && !this.hideSidebar) {

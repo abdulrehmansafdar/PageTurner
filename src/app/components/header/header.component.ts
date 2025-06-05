@@ -1,5 +1,5 @@
-import { CommonModule,isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, OnInit,PLATFORM_ID,Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,19 +10,22 @@ import { User } from '../../Interfaces/Book.model';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule,CommonModule,FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+
+
   searchQuery = ""
- totalItems!: number;
- currentUser !: User
+  totalItems!: number;
+  currentUser !: User
+  showProfile = false;
 
   constructor(
     private router: Router,
     public cartService: CartService,
-    public auth:AuthService,
+    public auth: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     effect(() => {
@@ -33,10 +36,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.auth.getUser();
+    this.totalItems = this.cartService.totalItems();
     if (isPlatformBrowser(this.platformId)) {
       debugger
-      const user:User ={
-       
+      const user: User = {
+
         username: localStorage.getItem("username") || "",
         email: localStorage.getItem("email") || "",
         Role: localStorage.getItem("Role") || "",
@@ -53,20 +57,27 @@ export class HeaderComponent implements OnInit {
           Role: ""
         });
       }
-      } 
-      console.log("Current User:", this.currentUser);
     }
+    console.log("Current User:", this.currentUser);
+  }
 
-  
 
+  showUserProfile() {
+    this.showProfile = !this.showProfile;
+
+  }
+  logout() {
+      this.auth.logout();
+    this.router.navigate(['/login']);
+  }
   onSearch(): void {
     if (this.searchQuery.trim()) {
       this.router.navigate(["/search"], { queryParams: { q: this.searchQuery.trim() } })
     }
-    else if(this.searchQuery.trim() === "") {
-      
+    else if (this.searchQuery.trim() === "") {
+
     }
-    
+
   }
 
 }

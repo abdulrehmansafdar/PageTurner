@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiResponse, CartItem } from '../../Interfaces/Book.model';
@@ -15,28 +15,40 @@ import { ApiCallService } from '../../Services/api-call.service';
 })
 export class CartComponent  implements OnInit {
 
-    cartitems!: typeof this.cartService.cartitems;
+    cartitems:CartItem[] = [];
   totalPrice!: typeof this.cartService.totalPrice;
+  loading = true; // Add loading state
 
-  constructor(public cartService: CartService,private toastr: ToastrService,
+  constructor(
+    public cartService: CartService,
+    private toastr: ToastrService,
     private apicallService: ApiCallService
-  ) {}
-  
+  ) {
+    effect(() => {
+      this.cartitems = this.cartService.cartitems();
+      this.totalPrice = this.cartService.totalPrice;
+    });
+  }
 
   ngOnInit(): void {
-    this.cartitems = this.cartService.cartitems;
     this.totalPrice = this.cartService.totalPrice;
-    this.apicallService.getWithToken<ApiResponse>("cart").subscribe({
+    this.apicallService.getWithToken<ApiResponse>("Cart/GetCartItems").subscribe({
       next: (response: ApiResponse) => {
-      this.cartService.Setcartitems(response.responseData as CartItem[]);
-      this.cartService.calculateTotal();
-      this.cartService.SetTotalItems(response.responseData.length);
+        if (response.responseData) {
+          this.cartService.Setcartitems(response.responseData as CartItem[]);
+        } else {
+          this.cartService.Setcartitems([]); // Ensure empty array if no data
+        }
+        this.cartService.calculateTotal();
+        this.cartService.updateTotalItemsCount();
+        this.loading = false;
       },
       error: (error) => {
         this.toastr.error("Failed to load cart items", "Error");
+        this.loading = false;
+        this.cartService.Setcartitems([]); // Set to empty on error
       }
     });
-    
   }
 
   updateQuantity(bookId: number, quantity: number): void {

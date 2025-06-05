@@ -1,17 +1,22 @@
  <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
 
-      <div *ngIf="this.cartitems.length === 0" class="text-center py-12">
-        <div class="text-6xl mb-4">🛒</div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-        <p class="text-gray-600 mb-6">Add some books to get started!</p>
-        <a routerLink="/" 
-           class="inline-block bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-          Continue Shopping
-        </a>
-      </div>
+      <!-- Empty Cart Template -->
+  <ng-container *ngIf="cartitems.length === 0; else cartContent">
+    <div class="text-center py-12">
+      <div class="text-6xl mb-4">🛒</div>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+      <p class="text-gray-600 mb-6">Add some books to get started!</p>
+      <a routerLink="/" 
+         class="inline-block bg-orange-400 hover:bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+        Continue Shopping
+      </a>
+    </div>
+  </ng-container>
 
-      <div *ngIf="this.cartitems.length! > 0" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <ng-template #cartContent>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Cart Items -->
         <div class="lg:col-span-2">
           <div class="bg-white rounded-lg shadow-sm border">
@@ -20,21 +25,21 @@
             </div>
             
             <div class="divide-y">
-              <div *ngFor="let item of cartitems() " class="p-6 flex items-center space-x-4">
+              <div *ngFor="let item of cartitems " class="p-6 flex items-center space-x-4">
                 <img 
-                  [src]="item.book.ImageUrl" 
-                  [alt]="item.book.Title"
+                  [src]="item.book.imageUrl" 
+                  [alt]="item.book.title"
                   class="w-20 h-28 object-cover rounded-lg"
                 >
                 
                 <div class="flex-1">
                   <h3 class="font-semibold text-lg text-gray-900">
                     <a [routerLink]="['/book', item.book.id]" class="hover:text-orange-600">
-                      {{ item.book.Title }}
+                      {{ item.book.title }}
                     </a>
                   </h3>
-                  <p class="text-gray-600">by {{ item.book.Author }}</p>
-                  <p class="text-sm text-gray-500">{{ item.book.Category }}</p>
+                  <p class="text-gray-600">by {{ item.book.author }}</p>
+                  <p class="text-sm text-gray-500">{{ item.book.category }}</p>
                 </div>
                 
                 <div class="flex items-center space-x-3">
@@ -51,8 +56,8 @@
                   </div>
                   
                   <div class="text-right">
-                    <p class="font-semibold text-lg">\${{ (item.book.Price * item.quantity).toFixed(2) }}</p>
-                    <p class="text-sm text-gray-500">\${{ item.book.Price.toFixed(2) }} each</p>
+                    <p class="font-semibold text-lg">\${{ (item.book.price * item.quantity).toFixed(2) }}</p>
+                    <p class="text-sm text-gray-500">\${{ item.book.price.toFixed(2) }} each</p>
                   </div>
                   
                   <button 
@@ -118,4 +123,5 @@
             </div>
           </div>
         </div>
+        </ng-template>
       </div>

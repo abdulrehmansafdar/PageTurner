@@ -1,17 +1,17 @@
 export interface Book {
   id: number
-  Title: string
-  Author: string
-  Description: string
-  ISBN: string
-  Price: number
-  ImageUrl: string
-  Category: string
-  Rating: number
-  Reviews: number
-  Pages: number
-  Publisher: string
-  PublishedDate: string
+  title: string
+  author: string
+  description: string
+  isbn: string
+  price: number
+  imageUrl: string
+  category: string
+  rating: number
+  reviews: number
+  pages: number
+  publisher: string
+  publishedDate: string
 }
 
 export interface CartItem {
@@ -58,8 +58,8 @@ export interface ApiResponse {
 }
 export interface Category {
   id: number
-  name: string,
-  description: string
+  Name: string,
+  Description: string
 }
 export interface User {
   username: string;
@@ -80,4 +80,29 @@ export interface RegisterRequest {
 export interface AuthResponse {
   token: string;
   user: any;
+}
+export interface BookRequest {
+  id: number;
+  title: string;
+  Author: string;
+  ImageUrl: string;
+  ISBN: string;
+  Category: string;
+  Description: string;
+  Price: number;
+  Rating: number;
+  Reviews: number;
+  Pages: number;
+  requestDate?: string;
+  status?: string;
+}
+
+export interface SearchParams {
+  searchTerm: string;
+  pageNumber: number;
+  pageSize: number;
+  sortBy: string;
+  minPrice?: number;
+  maxPrice?: number;
+  category?: string;
 }

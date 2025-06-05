@@ -10,6 +10,9 @@ import { AuthService } from './Services/auth.service';
 import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from './Services/loader.service';
 import { SideBarComponent } from "./components/side-bar/side-bar.component";
+import { ApiCallService } from './Services/api-call.service';
+import { CartService } from './Services/cart.service';
+import { ApiResponse } from './Interfaces/Book.model';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +29,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
     private loader: LoaderService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
+    private apicall :ApiCallService,
+    private cart :CartService
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +53,21 @@ this.loader.show();
       const token = localStorage.getItem("token");
       if(token)
       {
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
       }
     }
-   
+
+   this.apicall.getWithToken<ApiResponse>("Cart/GetTotalCartItems").subscribe({
+      next: (response:ApiResponse) => {
+        if (response.responseCode === 200) {
+          this.cart.SetTotalItems(response.responseData);
+          
+        }
+      },
+      error: (error) => {
+        console.error("Error fetching cart:", error);
+      }
+    });
   }
 
   ngOnDestroy(): void {

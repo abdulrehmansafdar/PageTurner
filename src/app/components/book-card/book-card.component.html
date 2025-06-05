@@ -1,13 +1,13 @@
  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
       <div class="relative">
         <img 
-          [src]="book.ImageUrl" 
-          [alt]="book.Title"
+          [src]="book.imageUrl" 
+          [alt]="book.title"
           class="w-full h-64 object-fill group-hover:scale-105 transition-transform duration-300"
         >
         <div class="absolute top-2 right-2">
           <span class="bg-orange-400 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            {{ book.Category }}
+            {{ book.category }}
           </span>
         </div>
       </div>
@@ -15,21 +15,21 @@
       <div class="p-4">
         <h3 class="font-bold text-lg mb-2 text-gray-900 line-clamp-2">
           <a [routerLink]="['/book', book.id]" class="hover:text-orange-600 transition-colors">
-            {{ book.Title }}
+            {{ book.title }}
           </a>
         </h3>
         
-        <p class="text-gray-600 mb-2">by {{ book.Author }}</p>
+        <p class="text-gray-600 mb-2">by {{ book.author }}</p>
         
         <div class="flex items-center mb-3">
           <div class="flex items-center">
             <span class="text-yellow-400 mr-1">★</span>
-            <span class="text-sm text-gray-600">{{ book.Rating }} ({{ book.Reviews }} reviews)</span>
+            <span class="text-sm text-gray-600">{{ book.rating }} ({{ book.reviews }} reviews)</span>
           </div>
         </div>
         
         <div class="flex items-center justify-between">
-          <span class="text-2xl font-bold text-orange-600">\${{ book.Price.toFixed(2) }}</span>
+          <span class="text-2xl font-bold text-orange-600">\${{ book.price.toFixed(2) }}</span>
           <button 
             (click)="addToCart()"
             class="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center space-x-2"
