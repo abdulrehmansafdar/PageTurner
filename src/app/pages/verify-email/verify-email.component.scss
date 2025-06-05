@@ -4,6 +4,7 @@
   align-items: center;
   min-height: 80vh;
   padding: 20px;
+  position: relative;
 }
 
 .card {
@@ -14,6 +15,7 @@
   width: 100%;
   max-width: 500px;
   text-align: center;
+  z-index: 1;
 }
 
 h2 {
@@ -43,7 +45,7 @@ h2 {
   100% { transform: rotate(360deg); }
 }
 
-.success, .error {
+.success, .error, .initial {
   margin: 20px 0;
 }
 
@@ -87,4 +89,182 @@ h2 {
 
 .btn-primary:hover {
   background-color: #2980b9;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Verification animation */
+.verification-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.email-icon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.envelope {
+  width: 60px;
+  height: 40px;
+  background-color: #3498db;
+  border-radius: 5px;
+  position: relative;
+  margin: 20px auto;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 15px solid #3498db;
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 10px;
+    background-color: white;
+    transform: rotate(45deg);
+    top: 5px;
+    left: 3px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 15px;
+    background-color: white;
+    transform: rotate(-45deg);
+    top: 0;
+    left: 10px;
+  }
+}
+
+.circular-progress {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(#3498db 0%, #f1f1f1 0%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: progress-animation 10s linear forwards;
+}
+
+@keyframes progress-animation {
+  0% { background: conic-gradient(#3498db 0%, #f1f1f1 0%); }
+  10% { background: conic-gradient(#3498db 10%, #f1f1f1 90%); }
+  20% { background: conic-gradient(#3498db 20%, #f1f1f1 80%); }
+  30% { background: conic-gradient(#3498db 30%, #f1f1f1 70%); }
+  40% { background: conic-gradient(#3498db 40%, #f1f1f1 60%); }
+  50% { background: conic-gradient(#3498db 50%, #f1f1f1 50%); }
+  60% { background: conic-gradient(#3498db 60%, #f1f1f1 40%); }
+  70% { background: conic-gradient(#3498db 70%, #f1f1f1 30%); }
+  80% { background: conic-gradient(#3498db 80%, #f1f1f1 20%); }
+  90% { background: conic-gradient(#3498db 90%, #f1f1f1 10%); }
+  100% { background: conic-gradient(#3498db 100%, #f1f1f1 0%); }
+}
+
+.inner-circle {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3498db;
+}
+
+/* Response toast styles */
+.response-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  animation: fade-in-out 3s forwards;
+  max-width: 90%;
+}
+
+.success-toast {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.error-toast {
+  background-color: #f44336;
+  color: white;
+}
+
+.toast-icon {
+  margin-right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toast-message {
+  font-size: 16px;
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
 }

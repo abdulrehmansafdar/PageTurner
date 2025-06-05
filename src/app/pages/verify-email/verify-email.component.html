@@ -2,23 +2,52 @@
   <div class="card">
     <h2>Email Verification</h2>
     
-    <div *ngIf="isVerifying" class="loading">
-      <p>Verifying your email address...</p>
-      <div class="spinner"></div>
+    <!-- Initial content when not verifying or showing results -->
+    <div *ngIf="!isVerifying && !showResponse && !verificationSuccess && !errorMessage" class="initial">
+      <p>We will verify your email address: {{ email }}</p>
     </div>
-
-    <div *ngIf="!isVerifying && verificationSuccess" class="success">
+    
+    <!-- Verification success content -->
+    <div *ngIf="!isVerifying && !showResponse && verificationSuccess" class="success">
       <div class="success-icon">✓</div>
       <h3>Email Verified Successfully!</h3>
       <p>Your email address {{ email }} has been verified.</p>
       <button (click)="navigateToLogin()" class="btn-primary">Proceed to Login</button>
     </div>
 
-    <div *ngIf="!isVerifying && !verificationSuccess" class="error">
+    <!-- Verification error content -->
+    <div *ngIf="!isVerifying && !showResponse && !verificationSuccess && errorMessage" class="error">
       <div class="error-icon">!</div>
       <h3>Verification Failed</h3>
       <p>{{ errorMessage }}</p>
       <p>Please check your email and try the verification link again, or contact support if the problem persists.</p>
     </div>
+  </div>
+  
+  <!-- Verification Modal with 10s countdown -->
+  <div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="verification-animation">
+        <div class="email-icon">
+          <div class="envelope">
+            <div class="checkmark"></div>
+          </div>
+        </div>
+        <div class="circular-progress">
+          <div class="inner-circle">{{ timerCount }}</div>
+        </div>
+      </div>
+      <h3>Verifying Your Email</h3>
+      <p>Please wait while we verify your email address...</p>
+    </div>
+  </div>
+  
+  <!-- Response Toast (shows for 3s) -->
+  <div *ngIf="showResponse" class="response-toast" [ngClass]="{'success-toast': verificationSuccess, 'error-toast': !verificationSuccess}">
+    <div class="toast-icon">
+      <span *ngIf="verificationSuccess">✓</span>
+      <span *ngIf="!verificationSuccess">!</span>
+    </div>
+    <div class="toast-message">{{ responseMessage }}</div>
   </div>
 </div>
