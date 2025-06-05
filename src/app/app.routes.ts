@@ -12,6 +12,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { AddCategoryComponent } from './pages/add-category/add-category.component';
 import { ShowRequestsComponent } from './pages/show-requests/show-requests.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { AboutHelpComponent } from './pages/about-help/about-help.component';
 
 
 export const routes: Routes = [
@@ -38,6 +39,10 @@ export const routes: Routes = [
    {
     path: 'verify-email',
     component: VerifyEmailComponent
+  },
+  {
+    path: 'about-help',
+    component: AboutHelpComponent
   },
   { path: "**", component: NotFoundComponent },
 ]

@@ -6,7 +6,7 @@
         <aside class="md:w-[5%] w-[0%]" *ngIf="!hideHeaderFooter">
           <app-side-bar></app-side-bar>
         </aside>
-        <div [class]="hideHeaderFooter ? 'w-full' : 'md:w-[95%] w-[100%] pt-12' ">
+        <div [class]="hideHeaderFooter ? 'w-full' : 'md:w-[95%] w-[100%] ' ">
           <router-outlet></router-outlet>
           <app-footer *ngIf="!hideHeaderFooter"></app-footer>
         </div>

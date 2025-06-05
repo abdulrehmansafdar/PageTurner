@@ -1,22 +1,33 @@
 import { Component, HostListener, OnInit, PLATFORM_ID, Inject, OnDestroy, effect } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../Services/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroHome,heroPlusCircle,heroMagnifyingGlass,heroShoppingCart,heroCube,heroSquare3Stack3d,heroQuestionMarkCircle,heroArrowRightStartOnRectangle,heroInboxStack  } from '@ng-icons/heroicons/outline';
+import { heroHome, heroPlusCircle, heroMagnifyingGlass, heroShoppingCart, heroCube, heroSquare3Stack3d, heroQuestionMarkCircle, heroArrowRightStartOnRectangle, heroInboxStack, heroBars3, heroXMark } from '@ng-icons/heroicons/outline';
 import { CartService } from '../../Services/cart.service';
-// Define User interface
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [CommonModule, RouterModule,NgIcon],
+  imports: [CommonModule, RouterModule, NgIcon],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
-  viewProviders: [provideIcons({ heroHome, heroPlusCircle,heroCube,heroMagnifyingGlass,heroShoppingCart,heroSquare3Stack3d,heroQuestionMarkCircle,heroArrowRightStartOnRectangle,heroInboxStack  })]
+  viewProviders: [provideIcons({ 
+    heroHome, 
+    heroPlusCircle, 
+    heroCube, 
+    heroMagnifyingGlass, 
+    heroShoppingCart, 
+    heroSquare3Stack3d, 
+    heroQuestionMarkCircle, 
+    heroArrowRightStartOnRectangle, 
+    heroInboxStack,
+    heroBars3,
+    heroXMark
+  })]
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   expanded = false;
@@ -28,43 +39,55 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   menuItems = [
-    { icon: "heroHome", label: "Home", link: "/home", exact: true,badge:false,badgeCount: 0 },
-  { icon: "heroMagnifyingGlass", label: "Browse Books", link: "/search", exact: false,badge:false,badgeCount: 0 },
-  { icon: "heroPlusCircle", label: "Add Books", link: "/Add-book", exact: false,badge:false,badgeCount: 0 },
-  { icon: "heroShoppingCart", label: "Shopping Cart", link: "/cart", exact: false,badge:true, badgeCount: this.cartcount },
-  { icon: "heroCube", label: "My Orders", link: "/orders", exact: false,badge:false,badgeCount: 0 },
-  { icon: "heroInboxStack", label: "Book Requests", link: "/book-requests", exact: false,badge:false ,badgeCount: 0},
-  { icon: "heroSquare3Stack3d", label: "Categories", link: "/add-category", exact: false,badge:false ,badgeCount: 0},
-  { icon: "heroQuestionMarkCircle", label: "Help & Support", link: "/help", exact: false,badge:false,badgeCount: 0 },
+    { icon: "heroHome", label: "Home", link: "/home", exact: true, badge: false, badgeCount: 0 },
+    { icon: "heroMagnifyingGlass", label: "Browse Books", link: "/search", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroPlusCircle", label: "Add Books", link: "/Add-book", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroShoppingCart", label: "Shopping Cart", link: "/cart", exact: false, badge: true, badgeCount: this.cartcount },
+    { icon: "heroCube", label: "My Orders", link: "/orders", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroInboxStack", label: "Book Requests", link: "/book-requests", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroSquare3Stack3d", label: "Categories", link: "/add-category", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroQuestionMarkCircle", label: "Help & Support", link: "/about-help", exact: false, badge: false, badgeCount: 0 },
   ];
-
 
   constructor(
     private authService: AuthService,
     public router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    public cartService: CartService // Assuming cartService is part of AuthService
+    public cartService: CartService
   ) {
     effect(() => {
       this.cartcount = this.cartService.totalItems();
-        });
+    });
+    
     this.checkScreenSize();
     
-    // Subscribe to hideHeaderFooter$ to sync sidebar visibility with header/footer
-    this.subscription = this.authService.hideHeaderFooter$.subscribe(
-      (hide: boolean) => {
-        this.hideSidebar = hide;
-        if (hide) {
-          this.showSidebar = false;
-        } else if (!this.isMobile) {
-          this.showSidebar = true;
+    // Subscribe to hideHeaderFooter$ to sync sidebar visibility
+    this.subscription.add(
+      this.authService.hideHeaderFooter$.subscribe(
+        (hide: boolean) => {
+          this.hideSidebar = hide;
+          if (hide) {
+            this.showSidebar = false;
+          } else if (!this.isMobile) {
+            this.showSidebar = true;
+          }
         }
-      }
+      )
+    );
+    
+    // Close sidebar on navigation in mobile view
+    this.subscription.add(
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        if (this.isMobile) {
+          this.showSidebar = false;
+        }
+      })
     );
   }
 
   ngOnInit(): void {
-    debugger
     // Initialize sidebar state based on screen size
     this.checkScreenSize();
     this.cartcount = this.cartService.totalItems();
@@ -77,23 +100,29 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Clean up subscription when component is destroyed
+    // Clean up all subscriptions when component is destroyed
     this.subscription.unsubscribe();
   }
 
-  @HostListener("window:resize")
+  @HostListener('window:resize')
   checkScreenSize(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth < 768;
 
-    // On mobile, hide sidebar by default
+      // On mobile, hide sidebar by default
+      if (this.isMobile) {
+        this.showSidebar = false;
+      } else if (!this.hideSidebar) {
+        this.showSidebar = true;
+      }
+    }
+  }
+
+  // Handle clicking outside the sidebar (on the backdrop)
+  onBackdropClick(): void {
     if (this.isMobile) {
       this.showSidebar = false;
-    } else {
-      this.showSidebar = true;
     }
-    }
-    
   }
 
   expandSidebar(): void {
@@ -117,9 +146,15 @@ export class SideBarComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Handle navigation item click for mobile
+  onNavItemClick(): void {
+    if (this.isMobile) {
+      this.showSidebar = false;
+    }
+  }
+
   Logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-  
   }
 }

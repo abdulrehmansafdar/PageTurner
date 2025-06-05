@@ -1,47 +1,72 @@
-<aside class="fixed left-0 top-16 z-[999] h-[92dvh] transition-all duration-300 ease-in-out transform overflow-x-hidden"
-  [class.w-64]="expanded" [class.w-16]="!expanded" [class.md:w-64]="expanded && !isMobile"
-  [class.md:w-20]="!expanded && !isMobile" [class.translate-x-0]="showSidebar" [class.-translate-x-full]="!showSidebar"
-  (mouseenter)="expandSidebar()" (mouseleave)="collapseSidebar()">
-  <!-- Backdrop for mobile -->
-  <div *ngIf="showSidebar && isMobile" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-30" (click)="toggleSidebar()">
-  </div>
+<!-- Mobile Hamburger Menu Button -->
+<button 
+  *ngIf="isMobile" 
+  class="fixed top-4 left-4 z-[1000] px-[0.8rem] py-3 rounded-full  text-white shadow-lg hover:bg-orange-600 transition-all duration-300 focus:outline-none"
+  (click)="toggleSidebar()"
+  aria-label="Toggle menu">
+  <ng-icon [name]="showSidebar ? 'heroXMark' : 'heroBars3'" class="text-xl"></ng-icon>
+</button>
+
+<!-- Sidebar Backdrop for Mobile - Closes sidebar when clicked outside -->
+<div 
+  *ngIf="showSidebar && isMobile" 
+  class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[998] transition-opacity duration-300"
+  (click)="onBackdropClick()">
+</div>
+
+<!-- Sidebar -->
+<aside 
+  class="fixed left-0 top-16 z-[999] h-[92dvh] transition-all duration-300 ease-in-out transform overflow-x-hidden"
+  [class.w-64]="expanded || isMobile" 
+  [class.w-16]="!expanded && !isMobile" 
+  [class.md:w-64]="expanded && !isMobile"
+  [class.md:w-20]="!expanded && !isMobile" 
+  [class.translate-x-0]="showSidebar" 
+  [class.-translate-x-full]="!showSidebar"
+  (mouseenter)="expandSidebar()" 
+  (mouseleave)="collapseSidebar()">
 
   <!-- Sidebar Content -->
-  <div class="flex flex-col h-full bg-gradient-to-b from-slate-800 to-slate-900 text-white shadow-xl">
-
-
-
-
+  <div class="flex flex-col h-full bg-gradient-to-b from-slate-800 to-slate-900 text-white shadow-xl ">
     <!-- Navigation Menu -->
     <nav class="flex-1 overflow-y-auto py-4 px-2 overflow-x-hidden">
       <ul class="space-y-1">
         <li *ngFor="let item of menuItems">
-          <a [routerLink]="item.link" routerLinkActive="bg-orange-500 text-white"
+          <a 
+            [routerLink]="item.link" 
+            routerLinkActive="bg-orange-500 text-white"
             [routerLinkActiveOptions]="item.exact ? {exact: true} : {exact: false}"
             class="flex items-center p-3 rounded-lg transition-all duration-200 group hover:bg-orange-500 hover:text-white"
-            [class.justify-center]="!expanded" [class.md:justify-start]="!expanded && !isMobile">
+            [class.justify-center]="!expanded && !isMobile" 
+            [class.md:justify-start]="!expanded && !isMobile"
+            (click)="onNavItemClick()">
+            
             <!-- Icon with pulse effect on hover -->
             <div class="relative">
-              <div
-                class="absolute -inset-1.5 bg-orange-400 rounded-full opacity-0 group-hover:animate-ping group-hover:opacity-20">
-              </div>
-              <div class="relative flex items-center justify-center h-8 w-10 text-orange-400 group-hover:text-white"
+              <div class="absolute -inset-1.5 bg-orange-400 rounded-full opacity-0 group-hover:animate-ping group-hover:opacity-20"></div>
+              <div 
+                class="relative flex items-center justify-center h-8 w-10 text-orange-400 group-hover:text-white"
                 [class.text-white]="router.isActive(item.link, item.exact)">
                 <ng-icon [name]="item.icon" class="h-10 w-10 text-2xl"></ng-icon>
               </div>
             </div>
 
             <!-- Label with slide animation -->
-            <span class="ml-3 transition-all duration-300 whitespace-nowrap overflow-hidden"
-              [class.opacity-0]="!expanded" [class.max-w-0]="!expanded" [class.md:opacity-100]="!expanded && !isMobile"
+            <span 
+              class="ml-3 transition-all duration-300 whitespace-nowrap overflow-hidden"
+              [class.opacity-0]="!expanded && !isMobile" 
+              [class.max-w-0]="!expanded && !isMobile" 
+              [class.md:opacity-100]="!expanded && !isMobile"
               [class.md:max-w-xs]="!expanded && !isMobile">
               {{ item.label }}
             </span>
 
             <!-- Badge for notifications -->
-            <span *ngIf="item.badge === true"
+            <span 
+              *ngIf="item.badge === true"
               class="ml-auto bg-orange-600 text-white text-xs font-medium px-2 py-0.5 rounded-full"
-              [class.opacity-0]="!expanded" [class.md:opacity-100]="expanded && !isMobile">
+              [class.opacity-0]="!expanded && !isMobile" 
+              [class.md:opacity-100]="expanded && !isMobile">
               {{ item.icon === 'heroShoppingCart' ? cartcount : item.badgeCount }}
             </span>
           </a>
@@ -52,29 +77,21 @@
     <!-- Bottom Section -->
     <div class="p-4 border-t border-slate-700">
       <div class="flex items-center justify-between">
-        <!-- Theme Toggle -->
+        <!-- Logout Button -->
         <button
-          class="p-2 rounded-lg hover:bg-slate-700 transition-colors duration-200 flex items-center justify-center"
+          class="p-2 rounded-lg hover:bg-slate-700 transition-colors duration-200 flex items-center justify-center w-full"
           (click)="Logout()">
-          <ng-icon name="heroArrowRightStartOnRectangle" class="text-2xl"></ng-icon>
-          <span class="ml-2 transition-all duration-300 whitespace-nowrap overflow-hidden" [class.opacity-0]="!expanded"
-            [class.max-w-0]="!expanded" [class.md:opacity-100]="expanded && !isMobile"
-            [class.md:max-w-xs]="!expanded && !isMobile">
-            LogOut
+          <ng-icon name="heroArrowRightStartOnRectangle" class="text-2xl z-50"></ng-icon>
+          <span 
+            class="ml-2 transition-all duration-300 whitespace-nowrap overflow-hidden" 
+            [class.opacity-0]="!expanded && !isMobile"
+            [class.max-w-0]="!expanded && !isMobile" 
+            [class.md:opacity-100]="expanded && !isMobile"
+            [class.md:max-w-xs]="expanded && !isMobile">
+            Logout
           </span>
         </button>
-
-
       </div>
     </div>
   </div>
 </aside>
-
-<!-- Toggle Button for Mobile -->
-<button *ngIf="isMobile && !showSidebar"
-  class="fixed left-4 top-4 z-50 p-2 bg-orange-500 text-white rounded-lg shadow-lg hover:bg-orange-600 transition-colors duration-200"
-  (click)="toggleSidebar()">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
-</button>
