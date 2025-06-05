@@ -57,7 +57,7 @@ export class AuthService {
 
   private checkRoute(url: string): void {
     const shouldHide = this.authRoutes.some(route => 
-      url === route || url.startsWith(route + '?') || url.startsWith(route + '#')
+      url === route || url.startsWith(route + '?') || url.includes("verify-email") || url.startsWith(route + '#' )
     );
     this.hideHeaderFooterSubject.next(shouldHide);
   }
