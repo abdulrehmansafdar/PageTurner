@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class ApiCallService {
-  private baseUrl = 'https://pageturner.runasp.net/api';
+  private baseUrl = 'https://localhost:7034/api';
   private isBrowser: boolean;
 
   constructor(
