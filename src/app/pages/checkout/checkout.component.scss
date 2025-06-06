@@ -1,88 +1,151 @@
-Abdul Rehman\bookstore_frontend\src\app\pages\checkout\checkout.component.scss
 :host {
   display: block;
 }
 
 // Custom scrollbar for cart items
-.overflow-y-auto {
+.custom-scrollbar {
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f1f5f9;
     border-radius: 10px;
   }
   
   &::-webkit-scrollbar-thumb {
-    background: #ddd;
+    background: #cbd5e1;
     border-radius: 10px;
     
     &:hover {
-      background: #ccc;
+      background: #94a3b8;
     }
   }
 }
 
-// Form styling enhancements
+// Enhanced form styling
 input, select {
   transition: all 0.2s ease;
   
   &:focus {
-    border-color: #f97316;
+    border-color: #fe7743 !important;
+    box-shadow: 0 0 0 3px rgba(254, 119, 67, 0.1);
+  }
+  
+  &:hover:not(:focus) {
+    border-color: #fe7743;
   }
 }
 
-// Subtle hover effects
-.rounded-lg, .rounded-xl {
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+// Card hover effects
+.rounded-xl, .rounded-lg {
+  transition: all 0.3s ease;
   
   &:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    transform: translateY(-1px);
   }
 }
 
-// Add some nice transitions
-.bg-orange-500, .border-orange-400 {
+// Button animations
+button {
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(254, 119, 67, 0.3);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+// Payment method selection animations
+.cursor-pointer {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Gradient background animation
+.bg-gradient-to-br {
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Loading spinner animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+// Backdrop blur support
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+// Enhanced focus states
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #fe7743;
+  box-shadow: 0 0 0 3px rgba(254, 119, 67, 0.1);
+}
+
+// Smooth transitions for all interactive elements
+* {
   transition: all 0.2s ease;
 }
 
-// Custom animation for the button
-button[type="submit"] {
-  position: relative;
-  overflow: hidden;
-  
-  &:not(:disabled):after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    border-radius: 100%;
-    transform: scale(1, 1) translate(-50%);
-    transform-origin: 50% 50%;
-  }
-  
-  &:not(:disabled):focus:after {
-    animation: ripple 1s ease-out;
-  }
+// Custom checkbox styling
+input[type="checkbox"] {
+  accent-color: #fe7743;
 }
 
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
+// Enhanced shadow effects
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  20% {
-    transform: scale(25, 25);
-    opacity: 0.5;
+  
+  .text-4xl {
+    font-size: 2rem;
   }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
+  
+  .min-w-200 {
+    min-width: 100%;
   }
 }

@@ -1,401 +1,376 @@
-<div class="bg-gray-50 min-h-screen">
-  <div class="container mx-auto px-4 py-10">
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Header -->
     <div class="flex items-center justify-between mb-8">
-      <h1 class="text-3xl font-bold text-gray-900">Complete Your Purchase</h1>
-      <div class="text-sm text-gray-500 flex items-center">
-        <span class="mr-2">Secure Checkout</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+      <div>
+        <h1 class="text-4xl font-bold text-slate-900 mb-2">Complete Your Purchase</h1>
+        <p class="text-slate-600">Secure checkout powered by industry-leading encryption</p>
+      </div>
+      <div class="flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full border border-emerald-200">
+        <svg class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
         </svg>
+        <span class="text-sm font-medium text-emerald-700">Secure Checkout</span>
       </div>
     </div>
 
     <!-- Progress Bar -->
-    <div class="w-full mb-10">
+    <div class="mb-12">
       <div class="relative">
-        <div class="h-2 bg-gray-200 rounded-full">
-          <div class="h-2 bg-orange-400 rounded-full w-2/3"></div>
+        <div class="h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-[#fe7743] to-[#ff8f65] rounded-full w-2/3 transition-all duration-500"></div>
         </div>
-        <div class="flex justify-between absolute -top-2 w-full">
-          <div class="bg-orange-500 rounded-full h-6 w-6 flex items-center justify-center text-white text-xs font-bold">1</div>
-          <div class="bg-orange-500 rounded-full h-6 w-6 flex items-center justify-center text-white text-xs font-bold">2</div>
-          <div class="bg-gray-300 rounded-full h-6 w-6 flex items-center justify-center text-white text-xs font-bold">3</div>
+        <div class="flex justify-between absolute -top-3 w-full">
+          <div class="bg-[#fe7743] rounded-full h-9 w-9 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <div class="bg-[#fe7743] rounded-full h-9 w-9 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+            2
+          </div>
+          <div class="bg-slate-300 rounded-full h-9 w-9 flex items-center justify-center text-slate-500 text-sm font-bold">
+            3
+          </div>
         </div>
-        <div class="flex justify-between absolute -bottom-6 w-full text-xs text-gray-600">
-          <div class="text-center font-medium">Cart</div>
-          <div class="text-center font-medium text-orange-500">Checkout</div>
-          <div class="text-center">Confirmation</div>
+        <div class="flex justify-between absolute -bottom-8 w-full text-sm">
+          <div class="text-center font-medium text-slate-600">
+            <div class="text-[#fe7743]">✓ Cart</div>
+          </div>
+          <div class="text-center font-medium">
+            <div class="text-[#fe7743] font-semibold">Checkout</div>
+          </div>
+          <div class="text-center font-medium text-slate-500">
+            <div>Confirmation</div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
-      <!-- Order Summary (Right Side) -->
+      <!-- Order Summary -->
       <div class="lg:col-span-1 order-1 lg:order-2">
-        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 sticky top-4">
-          <h2 class="text-xl font-bold mb-6 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-            </svg>
-            Order Summary
-          </h2>
+        <div class="sticky top-4 border-0 shadow-xl bg-white/80 backdrop-blur-sm rounded-xl p-6">
+          <div class="pb-4">
+            <h2 class="flex items-center gap-3 text-xl text-slate-900 font-bold">
+              <div class="p-2 bg-[#fe7743] rounded-lg">
+                <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 5M7 13l-1.5 5m0 0h9m-9 0a1 1 0 100 2 1 1 0 000-2zm9 0a1 1 0 100 2 1 1 0 000-2z"></path>
+                </svg>
+              </div>
+              Order Summary
+            </h2>
+          </div>
           
-          <!-- Cart Items -->
-          <div class="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2">
-            <div *ngFor="let item of cartItems" class="flex items-center space-x-3 pb-3 border-b">
-              <img 
-                [src]="item.book.imageUrl" 
-                [alt]="item.book.title"
-                class="w-12 h-16 object-cover rounded shadow-sm"
-              >
-              <div class="flex-1">
-                <h4 class="font-medium text-sm line-clamp-1">{{ item.book.title }}</h4>
-                <p class="text-gray-600 text-xs">by {{ item.book.author }}</p>
-                <div class="flex justify-between mt-1">
-                  <p class="text-gray-500 text-xs">Qty: {{ item.quantity }}</p>
-                  <span class="font-semibold text-sm">${{ (item.book.price * item.quantity).toFixed(2) }}</span>
+          <div class="space-y-6">
+            <!-- Cart Items -->
+            <div class="space-y-4 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
+              <div *ngFor="let item of cartItems" class="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                <img [src]="item.book.imageUrl" [alt]="item.book.title" class="w-14 h-18 object-cover rounded-lg shadow-sm">
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-semibold text-sm text-slate-900 truncate">{{ item.book.title }}</h4>
+                  <p class="text-xs text-slate-600 mb-2">by {{ item.book.author }}</p>
+                  <div class="flex justify-between items-center">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                      Qty: {{ item.quantity }}
+                    </span>
+                    <span class="font-bold text-sm text-slate-900">
+                      ${{ (item.book.price * item.quantity).toFixed(2) }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Promo Code -->
-          <div class="mb-6">
-            <div class="flex space-x-2">
-              <input 
-                type="text" 
-                placeholder="Promo code"
-                class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-              >
-              <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
-                Apply
-              </button>
-            </div>
-          </div>
-          
-          <!-- Totals -->
-          <div class="border-t pt-4 space-y-3">
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Subtotal</span>
-              <span>${{ cartSubtotal.toFixed(2) }}</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Shipping</span>
-              <span class="text-green-600 font-medium">Free</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Tax (8%)</span>
-              <span>${{ (cartSubtotal * 0.08).toFixed(2) }}</span>
-            </div>
-            <div class="border-t pt-3 mt-2">
-              <div class="flex justify-between font-bold text-lg">
-                <span>Total</span>
-                <span class="text-orange-600">${{ cartTotal.toFixed(2) }}</span>
+
+            <!-- Promo Code -->
+            <div class="p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+              <div class="flex gap-2">
+                <input type="text" placeholder="Enter promo code" 
+                       class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200">
+                <button class="border border-[#fe7743] text-[#fe7743] hover:bg-[#fe7743] hover:text-white transition-all duration-200 px-4 py-2 rounded-lg text-sm font-medium">
+                  Apply
+                </button>
               </div>
             </div>
-          </div>
-          
-          <!-- Security Notice -->
-          <div class="mt-6 p-3 bg-gray-50 rounded-lg">
-            <div class="flex items-center text-sm text-gray-600">
-              <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-              </svg>
-              Your payment information is secure and encrypted
-            </div>
-          </div>
 
-          <!-- Estimated Delivery -->
-          <div class="mt-6 bg-orange-50 p-4 rounded-lg border border-orange-100">
-            <div class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500 mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h5a1 1 0 001-1v-1h.05a2.5 2.5 0 014.9 0H17a1 1 0 001-1V5a1 1 0 00-1-1H3z" />
-              </svg>
-              <div>
-                <h4 class="font-medium text-sm text-orange-800">Estimated Delivery</h4>
-                <p class="text-orange-700 text-sm mt-1">{{ getDeliveryDate() | date:'MMMM d' }} - {{ getDeliveryDate(5) | date:'MMMM d' }}</p>
+            <div class="border-t border-slate-200"></div>
+
+            <!-- Totals -->
+            <div class="space-y-3">
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-600">Subtotal</span>
+                <span class="font-medium text-slate-900">${{ cartSubtotal.toFixed(2) }}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-600">Shipping</span>
+                <span class="font-medium text-emerald-600">Free</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-600">Tax (8%)</span>
+                <span class="font-medium text-slate-900">${{ (cartSubtotal * 0.08).toFixed(2) }}</span>
+              </div>
+              <div class="border-t border-slate-200"></div>
+              <div class="flex justify-between items-center pt-2">
+                <span class="text-lg font-bold text-slate-900">Total</span>
+                <span class="text-2xl font-bold text-[#fe7743]">${{ cartTotal.toFixed(2) }}</span>
+              </div>
+            </div>
+
+            <!-- Security Notice -->
+            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div class="flex items-center gap-2 text-sm text-emerald-700">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                <span class="font-medium">Your payment information is secure and encrypted</span>
+              </div>
+            </div>
+
+            <!-- Delivery Info -->
+            <div class="p-4 bg-gradient-to-r from-[#fe7743]/10 to-[#ff8f65]/10 rounded-xl border border-[#fe7743]/20">
+              <div class="flex items-start gap-3">
+                <div class="p-2 bg-[#fe7743] rounded-lg">
+                  <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-sm text-slate-900 mb-1">Estimated Delivery</h4>
+                  <p class="text-sm text-slate-700">
+                    {{ getDeliveryDate() | date:'MMMM d' }} - {{ getDeliveryDate(5) | date:'MMMM d' }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Shipping Form (Left Side) -->
-      <div class="lg:col-span-2 order-2 lg:order-1">
-        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-6">
-          <h2 class="text-xl font-bold mb-6 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-            </svg>
-            Shipping Information
-          </h2>
+      <!-- Forms -->
+      <div class="lg:col-span-2 order-2 lg:order-1 space-y-6">
+        <!-- Shipping Information -->
+        <div class="border-0 shadow-xl bg-white/80 backdrop-blur-sm rounded-xl p-6">
+          <div class="pb-6">
+            <h2 class="flex items-center gap-3 text-xl text-slate-900 font-bold">
+              <div class="p-2 bg-slate-700 rounded-lg">
+                <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              Shipping Information
+            </h2>
+          </div>
           
-          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                <input
-                  type="text"
-                  formControlName="firstName"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('firstName')?.invalid && checkoutForm.get('firstName')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('firstName')?.invalid && checkoutForm.get('firstName')?.touched" 
+          <form [formGroup]="checkoutForm" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label for="firstName" class="block text-sm font-semibold text-slate-700">First Name</label>
+                <input type="text" id="firstName" formControlName="firstName"
+                       class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                       placeholder="Enter your first name"
+                       [class.border-red-500]="checkoutForm.get('firstName')?.invalid && checkoutForm.get('firstName')?.touched">
+                <div *ngIf="checkoutForm.get('firstName')?.invalid && checkoutForm.get('firstName')?.touched"
                      class="text-red-500 text-sm mt-1">
                   First name is required
                 </div>
               </div>
               
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                <input
-                  type="text"
-                  formControlName="lastName"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('lastName')?.invalid && checkoutForm.get('lastName')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('lastName')?.invalid && checkoutForm.get('lastName')?.touched" 
+              <div class="space-y-2">
+                <label for="lastName" class="block text-sm font-semibold text-slate-700">Last Name</label>
+                <input type="text" id="lastName" formControlName="lastName"
+                       class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                       placeholder="Enter your last name"
+                       [class.border-red-500]="checkoutForm.get('lastName')?.invalid && checkoutForm.get('lastName')?.touched">
+                <div *ngIf="checkoutForm.get('lastName')?.invalid && checkoutForm.get('lastName')?.touched"
                      class="text-red-500 text-sm mt-1">
                   Last name is required
                 </div>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                <input
-                  type="email"
-                  formControlName="email"
-                  placeholder="you@example.com"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched" 
-                     class="text-red-500 text-sm mt-1">
-                  Valid email is required
-                </div>
+            <!-- Phone Number with Country Code -->
+            <div class="space-y-2">
+              <label for="phone" class="block text-sm font-semibold text-slate-700">Phone Number</label>
+              <div class="flex gap-2">
+                <select [(ngModel)]="selectedCountryCode" [ngModelOptions]="{standalone: true}"
+                        class="w-32 border border-slate-300 rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12 bg-white">
+                  <option *ngFor="let country of countryCodes" [value]="country.code">
+                    {{ country.flag }} {{ country.code }}
+                  </option>
+                </select>
+                <input type="tel" id="phone" formControlName="phone" placeholder="1234567890"
+                       class="flex-1 border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                       [class.border-red-500]="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched">
               </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                <input
-                  type="tel"
-                  formControlName="phone"
-                  placeholder="1234567890"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched" 
-                     class="text-red-500 text-sm mt-1">
-                  Valid phone number is required (10 digits)
-                </div>
+              <div *ngIf="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched"
+                   class="text-red-500 text-sm mt-1">
+                Valid phone number is required (10 digits)
               </div>
             </div>
 
-            <div class="mb-6">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
-              <input
-                type="text"
-                formControlName="address"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                [class.border-red-500]="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched"
-              >
-              <div *ngIf="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched" 
+            <div class="space-y-2">
+              <label for="address" class="block text-sm font-semibold text-slate-700">Street Address</label>
+              <input type="text" id="address" formControlName="address"
+                     class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                     placeholder="Enter your street address"
+                     [class.border-red-500]="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched">
+              <div *ngIf="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched"
                    class="text-red-500 text-sm mt-1">
                 Address is required
               </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-              <div class="col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                <input
-                  type="text"
-                  formControlName="city"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched" 
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div class="space-y-2">
+                <label for="country" class="block text-sm font-semibold text-slate-700">Country</label>
+                <select id="country" formControlName="country"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12 bg-white"
+                        [class.border-red-500]="checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched">
+                  <option value="">Select Country</option>
+                  <option value="US">🇺🇸 United States</option>
+                  <option value="CA">🇨🇦 Canada</option>
+                  <option value="UK">🇬🇧 United Kingdom</option>
+                  <option value="AU">🇦🇺 Australia</option>
+                  <option value="DE">🇩🇪 Germany</option>
+                  <option value="FR">🇫🇷 France</option>
+                  <option value="JP">🇯🇵 Japan</option>
+                  <option value="IN">🇮🇳 India</option>
+                </select>
+                <div *ngIf="checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched"
+                     class="text-red-500 text-sm mt-1">
+                  Country is required
+                </div>
+              </div>
+              
+            
+              
+              <div class="space-y-2">
+                <label for="city" class="block text-sm font-semibold text-slate-700">City</label>
+                <input type="text" id="city" formControlName="city"
+                       class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                       placeholder="City"
+                       [class.border-red-500]="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched">
+                <div *ngIf="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched"
                      class="text-red-500 text-sm mt-1">
                   City is required
                 </div>
               </div>
               
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
-                <input
-                  type="text"
-                  formControlName="state"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('state')?.invalid && checkoutForm.get('state')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('state')?.invalid && checkoutForm.get('state')?.touched" 
-                     class="text-red-500 text-sm mt-1">
-                  State is required
-                </div>
-              </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
-                <input
-                  type="text"
-                  formControlName="zipCode"
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  [class.border-red-500]="checkoutForm.get('zipCode')?.invalid && checkoutForm.get('zipCode')?.touched"
-                >
-                <div *ngIf="checkoutForm.get('zipCode')?.invalid && checkoutForm.get('zipCode')?.touched" 
+              <div class="space-y-2">
+                <label for="zipCode" class="block text-sm font-semibold text-slate-700">ZIP Code</label>
+                <input type="text" id="zipCode" formControlName="zipCode"
+                       class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                       placeholder="12345"
+                       [class.border-red-500]="checkoutForm.get('zipCode')?.invalid && checkoutForm.get('zipCode')?.touched">
+                <div *ngIf="checkoutForm.get('zipCode')?.invalid && checkoutForm.get('zipCode')?.touched"
                      class="text-red-500 text-sm mt-1">
                   Valid ZIP code is required (5 digits)
                 </div>
-              </div>
-            </div>
-
-            <div class="mb-6">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
-              <select
-                formControlName="country"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                [class.border-red-500]="checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched"
-              >
-                <option value="">Select Country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="UK">United Kingdom</option>
-                <option value="AU">Australia</option>
-                <option value="DE">Germany</option>
-                <option value="FR">France</option>
-                <option value="JP">Japan</option>
-                <option value="IN">India</option>
-              </select>
-              <div *ngIf="checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched" 
-                   class="text-red-500 text-sm mt-1">
-                Country is required
               </div>
             </div>
           </form>
         </div>
 
         <!-- Payment Information -->
-        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-6">
-          <h2 class="text-xl font-bold mb-6 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-              <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
-            </svg>
-            Payment Method
-          </h2>
-          
-          <div class="grid grid-cols-2 gap-4 mb-6">
-            <!-- Credit Card Option -->
-            <div 
-              [class]="'border rounded-lg p-4 cursor-pointer transition-all ' + 
-                (selectedPayment === 'credit' ? 'border-orange-400 bg-orange-50' : 'border-gray-200 hover:border-orange-200')"
-              (click)="setPaymentMethod('credit')"
-            >
-              <div class="flex items-center">
-                <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3"
-                     [class]="selectedPayment === 'credit' ? 'border-orange-500' : 'border-gray-300'">
-                  <div *ngIf="selectedPayment === 'credit'" class="w-3 h-3 rounded-full bg-orange-500"></div>
-                </div>
-                <div>
-                  <span class="font-medium text-sm">Credit Card</span>
-                  <div class="flex mt-1 space-x-1">
-                    <div class="w-8 h-5 bg-blue-600 rounded"></div>
-                    <div class="w-8 h-5 bg-red-500 rounded"></div>
-                    <div class="w-8 h-5 bg-gray-800 rounded"></div>
-                  </div>
-                </div>
+        <div class="border-0 shadow-xl bg-white/80 backdrop-blur-sm rounded-xl p-6">
+          <div class="pb-6">
+            <h2 class="flex items-center gap-3 text-xl text-slate-900 font-bold">
+              <div class="p-2 bg-slate-700 rounded-lg">
+                <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                </svg>
               </div>
-              <p class="text-xs text-gray-500 mt-2 ml-8">Pay securely with your credit or debit card</p>
-            </div>
-            
-            <!-- Cash on Delivery Option -->
-            <div 
-              [class]="'border rounded-lg p-4 cursor-pointer transition-all ' + 
-                (selectedPayment === 'cod' ? 'border-orange-400 bg-orange-50' : 'border-gray-200 hover:border-orange-200')"
-              (click)="setPaymentMethod('cod')"
-            >
-              <div class="flex items-center">
-                <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3"
-                     [class]="selectedPayment === 'cod' ? 'border-orange-500' : 'border-gray-300'">
-                  <div *ngIf="selectedPayment === 'cod'" class="w-3 h-3 rounded-full bg-orange-500"></div>
-                </div>
-                <span class="font-medium text-sm">Cash on Delivery</span>
-              </div>
-              <p class="text-xs text-gray-500 mt-2 ml-8">Pay when your order is delivered</p>
-            </div>
+              Payment Method
+            </h2>
           </div>
           
-          <!-- Payment Method Details -->
-          <div [ngSwitch]="selectedPayment">
-            <!-- Credit Card Form -->
-            <div *ngSwitchCase="'credit'" class="space-y-6 border-t pt-4">
-              <!-- Important: Add the [formGroup] directive here -->
-              <form [formGroup]="checkoutForm">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
-                  <div class="relative">
-                    <input
-                      type="text"
-                      formControlName="cardNumber"
-                      placeholder="1234 5678 9012 3456"
-                      class="w-full border border-gray-300 rounded-lg px-4 py-2.5 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                      [class.border-red-500]="checkoutForm.get('cardNumber')?.invalid && checkoutForm.get('cardNumber')?.touched"
-                    >
+          <div class="space-y-6">
+            <!-- Payment Method Selection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div [class]="'border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ' + 
+                          (selectedPayment === 'credit' ? 'border-[#fe7743] bg-[#fe7743]/5 shadow-lg' : 'border-slate-200 hover:border-[#fe7743]/50 hover:shadow-md')"
+                   (click)="setPaymentMethod('credit')">
+                <div class="flex items-center gap-3">
+                  <div [class]="'w-6 h-6 rounded-full border-2 flex items-center justify-center ' + 
+                              (selectedPayment === 'credit' ? 'border-[#fe7743]' : 'border-slate-300')">
+                    <div *ngIf="selectedPayment === 'credit'" class="w-3 h-3 rounded-full bg-[#fe7743]"></div>
                   </div>
-                  <div *ngIf="checkoutForm.get('cardNumber')?.invalid && checkoutForm.get('cardNumber')?.touched" 
-                      class="text-red-500 text-sm mt-1">
+                  <div>
+                    <span class="font-semibold text-slate-900">Credit Card</span>
+                    <div class="flex gap-1 mt-2">
+                      <div class="w-8 h-5 bg-blue-600 rounded"></div>
+                      <div class="w-8 h-5 bg-red-500 rounded"></div>
+                      <div class="w-8 h-5 bg-slate-800 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-600 mt-3 ml-9">Pay securely with your credit or debit card</p>
+              </div>
+
+              <div [class]="'border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ' + 
+                          (selectedPayment === 'cod' ? 'border-[#fe7743] bg-[#fe7743]/5 shadow-lg' : 'border-slate-200 hover:border-[#fe7743]/50 hover:shadow-md')"
+                   (click)="setPaymentMethod('cod')">
+                <div class="flex items-center gap-3">
+                  <div [class]="'w-6 h-6 rounded-full border-2 flex items-center justify-center ' + 
+                              (selectedPayment === 'cod' ? 'border-[#fe7743]' : 'border-slate-300')">
+                    <div *ngIf="selectedPayment === 'cod'" class="w-3 h-3 rounded-full bg-[#fe7743]"></div>
+                  </div>
+                  <span class="font-semibold text-slate-900">Cash on Delivery</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-3 ml-9">Pay when your order is delivered</p>
+              </div>
+            </div>
+
+            <!-- Payment Details -->
+            <form [formGroup]="paymentForm" *ngIf="selectedPayment === 'credit'" class="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="space-y-2">
+                  <label for="cardNumber" class="block text-sm font-semibold text-slate-700">Card Number</label>
+                  <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456"
+                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                         [class.border-red-500]="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
+                  <div *ngIf="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched"
+                       class="text-red-500 text-sm mt-1">
                     Valid card number is required (16 digits)
                   </div>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-6 mt-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
-                    <input
-                      type="text"
-                      formControlName="cardExpiry"
-                      placeholder="MM/YY"
-                      class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                      [class.border-red-500]="checkoutForm.get('cardExpiry')?.invalid && checkoutForm.get('cardExpiry')?.touched"
-                    >
-                    <div *ngIf="checkoutForm.get('cardExpiry')?.invalid && checkoutForm.get('cardExpiry')?.touched" 
-                        class="text-red-500 text-sm mt-1">
-                      Valid expiry date required (MM/YY)
-                    </div>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
-                    <input
-                      type="text"
-                      formControlName="cardCvv"
-                      placeholder="123"
-                      class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                      [class.border-red-500]="checkoutForm.get('cardCvv')?.invalid && checkoutForm.get('cardCvv')?.touched"
-                    >
-                    <div *ngIf="checkoutForm.get('cardCvv')?.invalid && checkoutForm.get('cardCvv')?.touched" 
-                        class="text-red-500 text-sm mt-1">
-                      Valid CVV required (3-4 digits)
-                    </div>
+                <div class="space-y-2">
+                  <label for="cardExpiry" class="block text-sm font-semibold text-slate-700">Expiry Date</label>
+                  <input type="text" id="cardExpiry" formControlName="cardExpiry" placeholder="MM/YY"
+                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                         [class.border-red-500]="paymentForm.get('cardExpiry')?.invalid && paymentForm.get('cardExpiry')?.touched">
+                  <div *ngIf="paymentForm.get('cardExpiry')?.invalid && paymentForm.get('cardExpiry')?.touched"
+                       class="text-red-500 text-sm mt-1">
+                    Valid expiry date required (MM/YY)
                   </div>
                 </div>
-              </form>
-            </div>
-            
-            <!-- Cash on Delivery Information -->
-            <div *ngSwitchCase="'cod'" class="p-4 bg-yellow-50 rounded-lg border border-yellow-100 mt-2">
-              <div class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600 mt-0.5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                
+                <div class="space-y-2">
+                  <label for="cardCvv" class="block text-sm font-semibold text-slate-700">CVV</label>
+                  <input type="text" id="cardCvv" formControlName="cardCvv" placeholder="123"
+                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
+                         [class.border-red-500]="paymentForm.get('cardCvv')?.invalid && paymentForm.get('cardCvv')?.touched">
+                  <div *ngIf="paymentForm.get('cardCvv')?.invalid && paymentForm.get('cardCvv')?.touched"
+                       class="text-red-500 text-sm mt-1">
+                    Valid CVV required (3-4 digits)
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div *ngIf="selectedPayment === 'cod'" class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+              <div class="flex items-start gap-3">
+                <svg class="h-5 w-5 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <div>
-                  <p class="text-sm text-yellow-800">
-                    You'll pay the full amount when your order is delivered. Please ensure you have the exact amount ready.
+                <div class="space-y-2">
+                  <p class="text-sm text-amber-800 font-medium">
+                    You'll pay the full amount when your order is delivered.
                   </p>
-                  <p class="text-sm text-yellow-800 mt-2">
-                    Note: Additional delivery fee may apply for Cash on Delivery orders.
+                  <p class="text-sm text-amber-700">
+                    Please ensure you have the exact amount ready. Additional delivery fee may apply.
                   </p>
                 </div>
               </div>
@@ -403,33 +378,36 @@
           </div>
         </div>
 
-        <!-- Checkout Button -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between bg-white rounded-xl shadow-md border border-gray-100 p-6">
-          <div class="mb-4 md:mb-0">
-            <div class="flex items-center text-sm mb-1">
-              <input type="checkbox" class="h-4 w-4 text-orange-500 rounded border-gray-300 focus:ring-orange-400 mr-2">
-              <span>Email me about special offers and new releases</span>
+        <!-- Submit Section -->
+        <div class="border-0 shadow-xl bg-white/80 backdrop-blur-sm rounded-xl p-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="h-4 w-4 text-[#fe7743] rounded border-slate-300 focus:ring-[#fe7743]">
+                <span class="text-sm text-slate-700">Email me about special offers and new releases</span>
+              </div>
+              <p class="text-xs text-slate-500">
+                By completing this purchase, you agree to our 
+                <a href="#" class="text-[#fe7743] hover:underline font-medium">Terms of Service</a>.
+              </p>
             </div>
-            <div class="text-xs text-gray-500">
-              By completing this purchase, you agree to our <a href="#" class="text-orange-500 hover:underline">Terms of Service</a>.
-            </div>
-          </div>
-          
-          <button 
-            type="submit"
-            (click)="onSubmit()"
-            [disabled]="checkoutForm.invalid || isSubmitting"
-            class="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 px-8 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
-          >
-            <span *ngIf="!isSubmitting">Complete Order</span>
-            <div *ngIf="isSubmitting" class="flex items-center">
-              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+
+            <button type="submit" (click)="onSubmit()" [disabled]="checkoutForm.invalid || isSubmitting"
+                    class="bg-gradient-to-r from-[#fe7743] to-[#ff8f65] hover:from-[#fd6a2f] hover:to-[#fe7743] text-white py-6 px-8 rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px] flex items-center justify-center gap-2">
+              <svg *ngIf="!isSubmitting" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
               </svg>
-              Processing...
-            </div>
-          </button>
+              <span *ngIf="!isSubmitting">Complete Order</span>
+              
+              <div *ngIf="isSubmitting" class="flex items-center gap-2">
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
