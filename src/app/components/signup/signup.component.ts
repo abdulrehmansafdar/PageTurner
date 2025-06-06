@@ -131,7 +131,12 @@ export class SignupComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 2500);
-        } else {
+        }
+        else if (response.responseCode === 400) {
+          this.error = response.responseMessage || 'Registration failed. Please try again.';
+          this.toastr.error(this.error,"Error");
+        }
+         else {
           this.error = response.errorMessages || 'Registration failed. Please try again.';
           this.toastr.error(this.error,"Error");
         }

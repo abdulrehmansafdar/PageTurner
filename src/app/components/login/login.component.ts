@@ -99,7 +99,12 @@ export class LoginComponent implements OnInit {
           }, 2000);
           
           
-        } else {
+        }
+        else if (response.responseCode === 400) {
+          this.error = response.responseMessage || "Login failed. Please check your credentials."
+          this.toastr.error(this.error, "Login Error");
+        }
+         else {
           this.error = response.errorMessages || "Login failed. Please check your credentials."
           this.toastr.error(this.error, "Login Error");
         }
