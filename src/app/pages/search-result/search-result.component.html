@@ -100,23 +100,28 @@
     </div>
   </div>
 
-  <!-- Pagination -->
-  <div class="mt-12 flex justify-center">
-    <nav class="flex items-center space-x-2">
-      <button (click)="prevPage()" [disabled]="currentPage === 1 || books.length > 10"
-        [class.opacity-50]="currentPage === 1"
-        class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-        Previous
-      </button>
-
-      <button (click)="goToPage(currentPage)" class="px-3 py-2 bg-orange-400 text-white rounded-lg">
-        {{ currentPage }}
-      </button>
-
-      <button [disabled]="!hasMorePages" [class.opacity-50]="!hasMorePages" (click)="nextPage()"
-        class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-        Next
-      </button>
-    </nav>
-  </div>
+ <!-- Pagination -->
+<div class="mt-12 flex justify-center" *ngIf="books.length > 0">
+  <nav class="flex items-center space-x-2">
+    <button 
+      (click)="prevPage()" 
+      [disabled]="currentPage === 1"
+      [class.opacity-50]="currentPage === 1"
+      class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+      Previous
+    </button>
+    
+    <button class="px-3 py-2 bg-orange-400 text-white rounded-lg">
+      {{ currentPage }}
+    </button>
+    
+    <button 
+      [disabled]="!hasMorePages"
+      [class.opacity-50]="!hasMorePages"
+      (click)="nextPage()"
+      class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+      Next
+    </button>
+  </nav>
+</div>
 </div>
