@@ -61,66 +61,59 @@ get books(): Book[] {
     });
   }
  searchBooks(): void {
-    this.loading = true;
-    
-    // Parse price range
-    let minPrice = 0;
-    let maxPrice = 0;
-    
-    if (this.filterForm.value.priceRange) {
-      const range = this.filterForm.value.priceRange.split('-');
-      minPrice = parseFloat(range[0]);
-      if (range[1]) {
-        maxPrice = parseFloat(range[1]);
-      } else if (range[0].endsWith('+')) {
-        // Handle ranges like "30+"
-        minPrice = parseFloat(range[0].slice(0, -1));
-        maxPrice = 10000; // Some high value
-      }
+  this.loading = true;
+  
+  // Parse price range
+  let minPrice = 0;
+  let maxPrice = 0;
+  
+  if (this.filterForm.value.priceRange) {
+    const range = this.filterForm.value.priceRange.split('-');
+    minPrice = parseFloat(range[0]);
+    if (range[1]) {
+      maxPrice = parseFloat(range[1]);
+    } else if (range[0].endsWith('+')) {
+      minPrice = parseFloat(range[0].slice(0, -1));
+      maxPrice = 10000;
     }
-    
-    const searchParams: SearchParams = {
-      searchTerm: this.searchQuery,
-      pageNumber: this.currentPage,
-      pageSize: this.pageSize,
-      sortBy: this.filterForm.value.sortBy || '',
-      category: this.filterForm.value.category || '',
-      minPrice : minPrice,
-      maxPrice : maxPrice
-    };
-    
-    if (minPrice > 0) {
-      searchParams.minPrice = minPrice;
-    }
-    
-    if (maxPrice > 0) {
-      searchParams.maxPrice = maxPrice;
-    }
-    
-    this.apiCall.postWithToken<ApiResponse>('Book/SearchBookByQuery', searchParams)
-      .subscribe({
-        next: (response) => {
-          if (response.responseCode === 200) {
-            // Update books in the service
-          const books = response.responseData as Book[] || [];
-          this.totalBooks = response.responseData.totalCount || 0;
-        this.hasMorePages = this.totalBooks > (this.currentPage * this.pageSize);
-          this.bookService.SetBooks(books);
-          console.log('Search results:', books);
-          this.loading = false;
-          } else {
-            this.toastr.error(response.errorMessages || 'Failed to search books', 'Error');
-            this.bookService.SetBooks([]);
-            this.loading = false;
-          }
-        },
-        error: (error) => {
-          this.toastr.error('Failed to search books', 'Error');
-          this.loading = false;
-          console.error('Error searching books:', error);
-        }
-      });
   }
+  
+  const searchParams: SearchParams = {
+    searchTerm: this.searchQuery,
+    pageNumber: this.currentPage,
+    pageSize: 8, // Set this to match backend size
+    sortBy: this.filterForm.value.sortBy || '',
+    category: this.filterForm.value.category || '',
+    minPrice: minPrice > 0 ? minPrice : undefined,
+    maxPrice: maxPrice > 0 ? maxPrice : undefined
+  };
+  
+  this.apiCall.postWithToken<ApiResponse>('Book/SearchBookByQuery', searchParams)
+    .subscribe({
+      next: (response) => {
+        if (response.responseCode === 200) {
+          // Update books in the service
+          const books = response.responseData as Book[] || [];
+          this.bookService.SetBooks(books);
+          
+          // Determine if there are more pages
+          // If we get a full page of results, assume there are more
+          this.hasMorePages = books.length === searchParams.pageSize;
+          
+          this.loading = false;
+        } else {
+          this.toastr.error(response.errorMessages || 'Failed to search books', 'Error');
+          this.bookService.SetBooks([]);
+          this.loading = false;
+        }
+      },
+      error: (error) => {
+        this.toastr.error('Failed to search books', 'Error');
+        this.loading = false;
+        console.error('Error searching books:', error);
+      }
+    });
+}
   get filteredBooks(): Book[] {
     return this.books.filter(book =>
       book.title.toLowerCase().includes(this.searchQuery.toLowerCase())
