@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, computed, effect, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, computed, effect, OnInit, PLATFORM_ID, Inject, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit {
   totalItems!: number;
   currentUser !: User
   showProfile = false;
-
+  @ViewChild('profileDropdown') profileDropdown!: ElementRef;
+  @ViewChild('profileButton') profileButton!: ElementRef;
   constructor(
     private router: Router,
     public cartService: CartService,
@@ -62,9 +63,25 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  showUserProfile() {
-    this.showProfile = !this.showProfile;
+   // Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Skip if dropdown is already closed
+    if (!this.showProfile) return;
+    
+    // Check if click was outside both the dropdown and the button that toggles it
+    const clickedInsideDropdown = this.profileDropdown?.nativeElement.contains(event.target);
+    const clickedOnButton = this.profileButton?.nativeElement.contains(event.target);
+    
+    if (!clickedInsideDropdown && !clickedOnButton) {
+      this.showProfile = false;
+    }
+  }
 
+  showUserProfile(event: Event) {
+    // Stop propagation to prevent immediate closing due to document click
+    event.stopPropagation();
+    this.showProfile = !this.showProfile;
   }
   logout() {
       this.auth.logout();
