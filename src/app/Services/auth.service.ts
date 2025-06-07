@@ -118,4 +118,8 @@ export class AuthService {
   shouldHideHeaderFooter(): boolean {
     return this.hideHeaderFooterSubject.value;
   }
+  isAdmin(): boolean {
+    const user = this.getUser();
+    return user && user.Role.toLocaleLowerCase() === 'admin';
+  }
 }

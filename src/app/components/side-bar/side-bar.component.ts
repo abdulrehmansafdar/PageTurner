@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, PLATFORM_ID, Inject, OnDestroy, effect } from '@angular/core';
+import { Component, HostListener, OnInit, PLATFORM_ID, Inject, OnDestroy, effect, computed } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../Services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -15,15 +15,15 @@ import { filter } from 'rxjs/operators';
   imports: [CommonModule, RouterModule, NgIcon],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
-  viewProviders: [provideIcons({ 
-    heroHome, 
-    heroPlusCircle, 
-    heroCube, 
-    heroMagnifyingGlass, 
-    heroShoppingCart, 
-    heroSquare3Stack3d, 
-    heroQuestionMarkCircle, 
-    heroArrowRightStartOnRectangle, 
+  viewProviders: [provideIcons({
+    heroHome,
+    heroPlusCircle,
+    heroCube,
+    heroMagnifyingGlass,
+    heroShoppingCart,
+    heroSquare3Stack3d,
+    heroQuestionMarkCircle,
+    heroArrowRightStartOnRectangle,
     heroInboxStack,
     heroBars3,
     heroXMark
@@ -34,19 +34,20 @@ export class SideBarComponent implements OnInit, OnDestroy {
   showSidebar = false;
   isMobile = false;
   cartcount = 0;
- 
+  isAdmin = false;
+
   hideSidebar = false;
   private subscription: Subscription = new Subscription();
 
   menuItems = [
-    { icon: "heroHome", label: "Home", link: "/home", exact: true, badge: false, badgeCount: 0 },
-    { icon: "heroMagnifyingGlass", label: "Browse Books", link: "/search", exact: false, badge: false, badgeCount: 0 },
-    { icon: "heroPlusCircle", label: "Add Books", link: "/Add-book", exact: false, badge: false, badgeCount: 0 },
-    { icon: "heroShoppingCart", label: "Shopping Cart", link: "/cart", exact: false, badge: true, badgeCount: this.cartcount },
-    { icon: "heroCube", label: "My Orders", link: "/orders", exact: false, badge: false, badgeCount: 0 },
-    { icon: "heroInboxStack", label: "Book Requests", link: "/book-requests", exact: false, badge: false, badgeCount: 0 },
-    { icon: "heroSquare3Stack3d", label: "Categories", link: "/add-category", exact: false, badge: false, badgeCount: 0 },
-    { icon: "heroQuestionMarkCircle", label: "Help & Support", link: "/about-help", exact: false, badge: false, badgeCount: 0 },
+    { icon: "heroHome", label: "Home", link: "/home", exact: true, badge: false, badgeCount: 0, adminOnly: false },
+    { icon: "heroMagnifyingGlass", label: "Browse Books", link: "/search", exact: false, badge: false, badgeCount: 0, adminOnly: false },
+    { icon: "heroPlusCircle", label: "Add Books", link: "/Add-book", exact: false, badge: false, badgeCount: 0, adminOnly: false },
+    { icon: "heroShoppingCart", label: "Shopping Cart", link: "/cart", exact: false, badge: true, badgeCount: this.cartcount, adminOnly: false },
+    { icon: "heroCube", label: "My Orders", link: "/orders", exact: false, badge: false, badgeCount: 0, adminOnly: false },
+    { icon: "heroInboxStack", label: "Book Requests", link: "/book-requests", exact: false, badge: false, badgeCount: 0, adminOnly: true },
+    { icon: "heroSquare3Stack3d", label: "Categories", link: "/add-category", exact: false, badge: false, badgeCount: 0, adminOnly: true },
+    { icon: "heroQuestionMarkCircle", label: "Help & Support", link: "/about-help", exact: false, badge: false, badgeCount: 0, adminOnly: false },
   ];
 
   constructor(
@@ -58,9 +59,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
     effect(() => {
       this.cartcount = this.cartService.totalItems();
     });
-    
+
     this.checkScreenSize();
-    
+
     // Subscribe to hideHeaderFooter$ to sync sidebar visibility
     this.subscription.add(
       this.authService.hideHeaderFooter$.subscribe(
@@ -74,7 +75,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
         }
       )
     );
-    
+
     // Close sidebar on navigation in mobile view
     this.subscription.add(
       this.router.events.pipe(
@@ -91,7 +92,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     // Initialize sidebar state based on screen size
     this.checkScreenSize();
     this.cartcount = this.cartService.totalItems();
-
+    this.isAdmin = this.authService.isAdmin();
     // For desktop, we start with the sidebar collapsed if not on auth routes
     if (!this.isMobile && !this.hideSidebar) {
       this.showSidebar = true;
@@ -129,6 +130,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     if (!this.isMobile && !this.hideSidebar) {
       this.expanded = true;
     }
+  }
+   // Get visible menu items based on user role
+  get visibleMenuItems() {
+    return this.menuItems.filter(item => !item.adminOnly || this.isAdmin);
   }
 
   collapseSidebar(): void {
