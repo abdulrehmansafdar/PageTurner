@@ -23,6 +23,8 @@ export class SearchResultComponent implements OnInit {
   loading = false;
   currentPage = 1;
   pageSize = 10;
+  totalBooks: number = 0;
+hasMorePages: boolean = false;
 
   constructor(private route: ActivatedRoute, private bookService: BookService,
     private apicall: ApiCallService, private toastr: ToastrService,
@@ -40,6 +42,8 @@ get books(): Book[] {
   return this.bookService.BooksSignal();
 }
   ngOnInit(): void {
+    // initially load books by default 
+    this.searchBooks();
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params["q"] || "";
     });
@@ -99,6 +103,8 @@ get books(): Book[] {
           if (response.responseCode === 200) {
             // Update books in the service
           const books = response.responseData as Book[] || [];
+          this.totalBooks = response.responseData.totalCount || 0;
+        this.hasMorePages = this.totalBooks > (this.currentPage * this.pageSize);
           this.bookService.SetBooks(books);
           console.log('Search results:', books);
           this.loading = false;

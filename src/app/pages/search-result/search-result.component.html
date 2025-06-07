@@ -1,137 +1,122 @@
 <div class="container mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">
-          Search Results
-        </h1>
-        <p class="text-gray-600" *ngIf="searchQuery">
-          {{ books.length }} results found for "{{ searchQuery }}"
-        </p>
-        <p class="text-gray-600" *ngIf="!searchQuery">
-          Showing all books
-        </p>
-      </div>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+      Search Results
+    </h1>
+    <p class="text-gray-600" *ngIf="searchQuery">
+      {{ books.length }} results found for "{{ searchQuery }}"
+    </p>
+    <p class="text-gray-600" *ngIf="!searchQuery">
+      Showing all books
+    </p>
+  </div>
 
-      <!-- Search Bar -->
-      <div class="mb-6">
-        <div class="relative max-w-xl mx-auto">
-          <input
-            type="text"
-            [(ngModel)]="searchQuery"
-            (keyup.enter)="onSearch()"
-            placeholder="Search books by title, author, or ISBN..."
-            class="w-full px-4 py-3 pl-10 pr-12 text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-          >
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </div>
-          <button
-            (click)="onSearch()"
-            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
-          >
-            <span class="text-orange-500 hover:text-orange-600 font-medium">Search</span>
-          </button>
-        </div>
+  <!-- Search Bar -->
+  <div class="mb-6">
+    <div class="relative max-w-xl mx-auto">
+      <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"
+        placeholder="Search books by title, author, or ISBN..."
+        class="w-full px-4 py-3 pl-10 pr-12 text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
       </div>
-
-      <!-- Filters -->
-      <div class="mb-8 bg-white p-6 rounded-lg shadow-sm border">
-        <h3 class="text-lg font-semibold mb-4">Filter Results</h3>
-        <form [formGroup]="filterForm">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-              <select 
-                formControlName="category"
-                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
-                <option value="">All Categories</option>
-                <option *ngFor="let category of categories" [value]="category.Name">{{ category.Name }}</option>
-              </select>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
-              <select 
-                formControlName="priceRange"
-                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
-                <option value="">Any Price</option>
-                <option value="0-10">$0 - $10</option>
-                <option value="10-20">$10 - $20</option>
-                <option value="20-30">$20 - $30</option>
-                <option value="30+">$30+</option>
-              </select>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
-              <select 
-                formControlName="sortBy"
-                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
-                <option value="">Select an option</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Customer Rating</option>
-                <option value="newest">Newest First</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- Loading State -->
-      <div *ngIf="loading" class="text-center py-12">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
-        <p class="mt-4 text-gray-600">Loading books...</p>
-      </div>
-
-      <!-- Results -->
-      <div *ngIf="!loading && books.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <app-book-card 
-          *ngFor="let book of books" 
-          [book]="book">
-        </app-book-card>
-      </div>
-
-      <!-- No Results -->
-      <div *ngIf="loading ===false && books.length === 0" class="text-center py-12">
-        <div class="text-6xl mb-4">📚</div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">No books found</h2>
-        <p class="text-gray-600 mb-6">
-          We couldn't find any books matching your search criteria.
-        </p>
-        <div class="space-y-2">
-          <p class="text-sm text-gray-500">Try:</p>
-          <ul class="text-sm text-gray-500 space-y-1">
-            <li>• Checking your spelling</li>
-            <li>• Using different keywords</li>
-            <li>• Searching for a different author or title</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Pagination -->
-      <div  class="mt-12 flex justify-center">
-        <nav class="flex items-center space-x-2">
-          <button 
-            (click)="prevPage()" 
-            [disabled]="currentPage === 1"
-            [class.opacity-50]="currentPage === 1"
-            class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-            Previous
-          </button>
-          
-          <button 
-            (click)="goToPage(currentPage)" 
-            class="px-3 py-2 bg-orange-400 text-white rounded-lg">
-            {{ currentPage }}
-          </button>
-          
-          <button 
-            (click)="nextPage()"
-            class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-            Next
-          </button>
-        </nav>
-      </div>
+      <button (click)="onSearch()"
+        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+        <span class="text-orange-500 hover:text-orange-600 font-medium">Search</span>
+      </button>
     </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="mb-8 bg-white p-6 rounded-lg shadow-sm border">
+    <h3 class="text-lg font-semibold mb-4">Filter Results</h3>
+    <form [formGroup]="filterForm">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+          <select formControlName="category"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category.Name">{{ category.Name }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+          <select formControlName="priceRange"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <option value="">Any Price</option>
+            <option value="0-10">$0 - $10</option>
+            <option value="10-20">$10 - $20</option>
+            <option value="20-30">$20 - $30</option>
+            <option value="30+">$30+</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+          <select formControlName="sortBy"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <option value="">Select an option</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Customer Rating</option>
+            <option value="newest">Newest First</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-12">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+    <p class="mt-4 text-gray-600">Loading books...</p>
+  </div>
+
+  <!-- Results -->
+  <div *ngIf="!loading && books.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <app-book-card *ngFor="let book of books" [book]="book">
+    </app-book-card>
+  </div>
+
+  <!-- No Results -->
+  <div *ngIf="loading ===false && books.length === 0" class="text-center py-12">
+    <div class="text-6xl mb-4">📚</div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-2">No books found</h2>
+    <p class="text-gray-600 mb-6">
+      We couldn't find any books matching your search criteria.
+    </p>
+    <div class="space-y-2">
+      <p class="text-sm text-gray-500">Try:</p>
+      <ul class="text-sm text-gray-500 space-y-1">
+        <li>• Checking your spelling</li>
+        <li>• Using different keywords</li>
+        <li>• Searching for a different author or title</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="mt-12 flex justify-center">
+    <nav class="flex items-center space-x-2">
+      <button (click)="prevPage()" [disabled]="currentPage === 1 || books.length > 10"
+        [class.opacity-50]="currentPage === 1"
+        class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+        Previous
+      </button>
+
+      <button (click)="goToPage(currentPage)" class="px-3 py-2 bg-orange-400 text-white rounded-lg">
+        {{ currentPage }}
+      </button>
+
+      <button [disabled]="!hasMorePages" [class.opacity-50]="!hasMorePages" (click)="nextPage()"
+        class="px-3 py-2 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+        Next
+      </button>
+    </nav>
+  </div>
+</div>

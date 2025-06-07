@@ -134,7 +134,7 @@ export class AddBookComponent implements OnInit {
         if (response.responseCode === 200) {
           this.toastr.success(response.responseMessage, 'Success');
           this.resetForm();
-          this.router.navigate(['/home']);
+          // this.router.navigate(['/home']);
         } else {
           this.toastr.error(response.errorMessages || 'Failed to add book', 'Error');
         }
