@@ -324,38 +324,36 @@
 
             <!-- Payment Details -->
             <form [formGroup]="paymentForm" *ngIf="selectedPayment === 'credit'" class="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="space-y-4">
+                <!-- Cardholder Name -->
                 <div class="space-y-2">
-                  <label for="cardNumber" class="block text-sm font-semibold text-slate-700">Card Number</label>
-                  <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="1234 5678 9012 3456"
+                  <label for="cardholderName" class="block text-sm font-semibold text-slate-700">Cardholder Name</label>
+                  <input type="text" id="cardholderName" formControlName="cardholderName" 
+                         placeholder="John Doe"
                          class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
-                         [class.border-red-500]="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
-                  <div *ngIf="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched"
+                         [class.border-red-500]="paymentForm.get('cardholderName')?.invalid && paymentForm.get('cardholderName')?.touched">
+                  <div *ngIf="paymentForm.get('cardholderName')?.invalid && paymentForm.get('cardholderName')?.touched"
                        class="text-red-500 text-sm mt-1">
-                    Valid card number is required (16 digits)
+                    Cardholder name is required
                   </div>
                 </div>
                 
+                <!-- Stripe Card Element Container -->
                 <div class="space-y-2">
-                  <label for="cardExpiry" class="block text-sm font-semibold text-slate-700">Expiry Date</label>
-                  <input type="text" id="cardExpiry" formControlName="cardExpiry" placeholder="MM/YY"
-                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
-                         [class.border-red-500]="paymentForm.get('cardExpiry')?.invalid && paymentForm.get('cardExpiry')?.touched">
-                  <div *ngIf="paymentForm.get('cardExpiry')?.invalid && paymentForm.get('cardExpiry')?.touched"
-                       class="text-red-500 text-sm mt-1">
-                    Valid expiry date required (MM/YY)
-                  </div>
+                  <label class="block text-sm font-semibold text-slate-700">Card Details</label>
+                  <div id="card-element" class="p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"></div>
+                  <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>
                 
-                <div class="space-y-2">
-                  <label for="cardCvv" class="block text-sm font-semibold text-slate-700">CVV</label>
-                  <input type="text" id="cardCvv" formControlName="cardCvv" placeholder="123"
-                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#fe7743] focus:border-[#fe7743] transition-all duration-200 h-12"
-                         [class.border-red-500]="paymentForm.get('cardCvv')?.invalid && paymentForm.get('cardCvv')?.touched">
-                  <div *ngIf="paymentForm.get('cardCvv')?.invalid && paymentForm.get('cardCvv')?.touched"
-                       class="text-red-500 text-sm mt-1">
-                    Valid CVV required (3-4 digits)
-                  </div>
+                <!-- Payment processing indicator -->
+                <div *ngIf="paymentProcessing" class="text-center py-2">
+                  <div class="inline-block animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-[#fe7743]"></div>
+                  <span class="ml-2 text-slate-700">Processing payment...</span>
+                </div>
+                
+                <!-- Payment error message -->
+                <div *ngIf="paymentError" class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p class="text-sm text-red-700">{{ paymentError }}</p>
                 </div>
               </div>
             </form>
