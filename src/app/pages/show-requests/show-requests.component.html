@@ -25,8 +25,8 @@
       </p>
     </div>
 
-    <!-- Request List Table -->
-    <div *ngIf="!loading && bookRequests.length > 0" class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <!-- Desktop Table View (hidden on mobile) -->
+    <div *ngIf="!loading && bookRequests.length > 0" class="bg-white rounded-xl shadow-sm overflow-hidden hidden md:block">
       <div class="h-[60dvh] overflow-y-auto overflow-x-hidden">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50 sticky top-0 z-10">
@@ -53,6 +53,7 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             <tr *ngFor="let request of bookRequests" class="hover:bg-gray-50 transition-colors">
+              <!-- Table rows as before -->
               <!-- Book Image and Title -->
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
@@ -129,6 +130,87 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Mobile Card View (shown only on mobile) -->
+    <div *ngIf="!loading && bookRequests.length > 0" class="md:hidden">
+      <div class="space-y-4  px-1 py-2">
+        <div *ngFor="let request of bookRequests" 
+             class="bg-white rounded-xl shadow-sm overflow-hidden card-hover-effect">
+          
+          <!-- Book Header with Image -->
+          <div class="flex items-center p-4 border-b border-gray-100">
+            <div class="flex-shrink-0 h-20 w-16 mr-4">
+              <img class="h-20 w-16 object-cover rounded-lg shadow" 
+                   [src]="request.ImageUrl" [alt]="request.title">
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-bold text-gray-900 line-clamp-1">{{ request.title }}</h3>
+              <p class="text-sm text-gray-600">by {{ request.Author }}</p>
+              <div class="flex items-center mt-1">
+                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                  {{ request.Category }}
+                </span>
+                <span class="ml-2 text-orange-600 font-semibold">${{ request.Price.toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Book Details -->
+          <div class="p-4 border-b border-gray-100">
+            <div class="mb-3">
+              <p class="text-sm text-gray-700 line-clamp-3">{{ truncateText(request.Description, 120) }}</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="flex items-center">
+                <ng-icon name="heroDocumentText" class="text-orange-500 mr-1 text-xs"></ng-icon>
+                <span class="text-gray-600">ISBN: {{ request.ISBN }}</span>
+              </div>
+              
+              <div class="flex items-center justify-end">
+                <div class="flex text-yellow-400 mr-1">
+                  <span *ngFor="let star of getStarRating(request.Rating)">
+                    <span *ngIf="star === 'full'">★</span>
+                    <span *ngIf="star === 'half'">★</span>
+                    <span *ngIf="star === 'empty'">☆</span>
+                  </span>
+                </div>
+                <span class="text-xs text-gray-500">({{ request.Reviews }})</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Actions -->
+          <div class="p-3 bg-gray-50 flex justify-between">
+            <button 
+              (click)="viewRequestDetails(request)"
+              class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg flex items-center space-x-1 transition-colors text-xs flex-1 justify-center"
+            >
+              <ng-icon name="heroEye" class="text-sm"></ng-icon>
+              <span>Details</span>
+            </button>
+            
+            <div class="flex space-x-2 flex-1">
+              <button 
+                (click)="ApproveWithConfirmation(request.id,request.title)"
+                class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg flex items-center space-x-1 transition-colors text-xs flex-1 justify-center"
+              >
+                <ng-icon name="heroCheck" class="text-sm"></ng-icon>
+                <span>Approve</span>
+              </button>
+              
+              <button 
+                (click)="rejectRequest(request.id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg flex items-center space-x-1 transition-colors text-xs flex-1 justify-center"
+              >
+                <ng-icon name="heroXMark" class="text-sm"></ng-icon>
+                <span>Reject</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
